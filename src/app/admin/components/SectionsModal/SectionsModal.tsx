@@ -1,4 +1,4 @@
-import { sections } from "../../helpers/sections"
+import { sections } from "../../sections"
 
 import style from "./SectionsModal.module.css"
 

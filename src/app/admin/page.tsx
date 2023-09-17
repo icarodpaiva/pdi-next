@@ -41,6 +41,10 @@ export default function Admin() {
     })
   }
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+  }
+
   return (
     <div className={style.main}>
       <h1>Páginas dinâmicas</h1>
@@ -48,19 +52,23 @@ export default function Admin() {
       {pageSections.length <= 0 ? (
         <button onClick={openModal}>+</button>
       ) : (
-        pageSections.map((pageSection, index) => (
-          <Section
-            key={index}
-            pageSection={pageSection}
-            index={index}
-            isUpButtonDisabled={index === 0}
-            isDownButtonDisabled={index === pageSections.length - 1}
-            setPageSectionIndex={setPageSectionIndex}
-            openModal={openModal}
-            removePageSection={removePageSection}
-            addPageSection={addPageSection}
-          />
-        ))
+        <form onSubmit={handleSubmit}>
+          {pageSections.map((pageSection, index) => (
+            <Section
+              key={index}
+              pageSection={pageSection}
+              index={index}
+              isUpButtonDisabled={index === 0}
+              isDownButtonDisabled={index === pageSections.length - 1}
+              setPageSectionIndex={setPageSectionIndex}
+              openModal={openModal}
+              removePageSection={removePageSection}
+              addPageSection={addPageSection}
+            />
+          ))}
+
+          <button type="submit">Salvar Página</button>
+        </form>
       )}
 
       {isModalOpen && (

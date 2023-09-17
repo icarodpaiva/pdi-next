@@ -1,4 +1,4 @@
-import { sectionsComponents } from "../../helpers/sections"
+import { sectionForms } from "../../sections"
 
 import style from "./Section.module.css"
 
@@ -41,14 +41,19 @@ export const Section = ({
     removePageSection(index)
   }
 
-  return (
-    <div>
-      <hr />
-      <button onClick={() => handleOpenModal(index)}>+</button>
+  const PageSectionForm = sectionForms[pageSection]
 
-      <div className={style.modalContainer}>
+  return (
+    <div className={style.sectionContainer}>
+      <hr />
+      <button type="button" onClick={() => handleOpenModal(index)}>
+        +
+      </button>
+
+      <div>
         <div className={style.buttonsContainer}>
           <button
+            type="button"
             disabled={isUpButtonDisabled}
             onClick={() => handleMovePageSection("up")}
           >
@@ -56,21 +61,28 @@ export const Section = ({
           </button>
 
           <button
+            type="button"
             disabled={isDownButtonDisabled}
             onClick={() => handleMovePageSection("down")}
           >
             Mover para baixo
           </button>
 
-          <button onClick={handleDuplicatePageSection}>Duplicar</button>
+          <button type="button" onClick={handleDuplicatePageSection}>
+            Duplicar
+          </button>
 
-          <button onClick={handleRemovePageSection}>Excluir</button>
+          <button type="button" onClick={handleRemovePageSection}>
+            Excluir
+          </button>
         </div>
 
-        {sectionsComponents[pageSection]()}
+        <PageSectionForm />
       </div>
 
-      <button onClick={() => handleOpenModal(index + 1)}>+</button>
+      <button type="button" onClick={() => handleOpenModal(index + 1)}>
+        +
+      </button>
       <hr />
     </div>
   )
