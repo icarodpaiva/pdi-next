@@ -27,14 +27,15 @@ export const DynamicForm = ({ formFields }: DynamicFormProps) => {
       <form>
         {formFields.map(({ name, label, type, placeholder }) => (
           <div key={name}>
-            <label htmlFor={name}>{label}</label>
+            <label htmlFor={`input-${name}`}>{label}</label>
             <input
               id={name}
-              name={name}
+              name={`input-${name}`}
               type={type}
               placeholder={placeholder}
               value={formData[name] || ""}
               onChange={handleChange}
+              autoComplete="off"
             />
           </div>
         ))}

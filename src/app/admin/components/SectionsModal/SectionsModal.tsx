@@ -3,16 +3,18 @@ import { sections } from "../../helpers/sections"
 import style from "./SectionsModal.module.css"
 
 interface SectionsModalProps {
+  pageSectionIndex: number
+  addPageSection: (pageSection: string, index: number) => void
   closeModal: () => void
-  addPageSection: (pageSection: string) => void
 }
 
 export const SectionsModal = ({
-  closeModal,
-  addPageSection
+  pageSectionIndex,
+  addPageSection,
+  closeModal
 }: SectionsModalProps) => {
   const handleChooseSection = (section: string) => {
-    addPageSection(section)
+    addPageSection(section, pageSectionIndex)
     closeModal()
   }
 

@@ -5,41 +5,72 @@ import style from "./Section.module.css"
 interface SectionProps {
   pageSection: string
   index: number
+  isUpButtonDisabled: boolean
+  isDownButtonDisabled: boolean
   setPageSectionIndex: (pageSectionIndex: number) => void
+  openModal: () => void
   removePageSection: (index: number) => void
   addPageSection: (pageSection: string, index: number) => void
-  openModal: () => void
 }
 
 export const Section = ({
-  index,
   pageSection,
+  index,
+  isUpButtonDisabled,
+  isDownButtonDisabled,
   setPageSectionIndex,
+  openModal,
   removePageSection,
-  openModal
+  addPageSection
 }: SectionProps) => {
-  const handleOpenSections = (pageSectionIndex: number) => {
+  const handleOpenModal = (pageSectionIndex: number) => {
     setPageSectionIndex(pageSectionIndex)
     openModal()
+  }
+
+  const handleMovePageSection = (moveTo: "up" | "down") => {
+    removePageSection(index)
+    addPageSection(pageSection, moveTo === "up" ? index - 1 : index + 1)
+  }
+
+  const handleDuplicatePageSection = () => {
+    addPageSection(pageSection, index + 1)
+  }
+
+  const handleRemovePageSection = () => {
+    removePageSection(index)
   }
 
   return (
     <div>
       <hr />
-      <button onClick={() => handleOpenSections(index)}>+</button>
+      <button onClick={() => handleOpenModal(index)}>+</button>
 
       <div className={style.modalContainer}>
         <div className={style.buttonsContainer}>
-          <button>Mover para baixo</button>
-          <button>Mover para cima</button>
-          <button>Duplicar</button>
-          <button onClick={() => removePageSection(index)}>Excluir</button>
+          <button
+            disabled={isUpButtonDisabled}
+            onClick={() => handleMovePageSection("up")}
+          >
+            Mover para cima
+          </button>
+
+          <button
+            disabled={isDownButtonDisabled}
+            onClick={() => handleMovePageSection("down")}
+          >
+            Mover para baixo
+          </button>
+
+          <button onClick={handleDuplicatePageSection}>Duplicar</button>
+
+          <button onClick={handleRemovePageSection}>Excluir</button>
         </div>
 
         {sectionsComponents[pageSection]()}
       </div>
 
-      <button onClick={() => handleOpenSections(index + 1)}>+</button>
+      <button onClick={() => handleOpenModal(index + 1)}>+</button>
       <hr />
     </div>
   )

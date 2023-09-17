@@ -21,11 +21,11 @@ export default function Admin() {
     setIsModalOpen(false)
   }
 
-  const addPageSection = (pageSection: string) => {
+  const addPageSection = (pageSection: string, index: number) => {
     setPageSections(prevPageSections => {
       const updatedPageSections = [...prevPageSections]
 
-      updatedPageSections.splice(pageSectionIndex, 0, pageSection)
+      updatedPageSections.splice(index, 0, pageSection)
 
       return updatedPageSections
     })
@@ -43,27 +43,31 @@ export default function Admin() {
 
   return (
     <div className={style.main}>
-      <h1>Admin</h1>
+      <h1>Páginas dinâmicas</h1>
 
       {pageSections.length <= 0 ? (
         <button onClick={openModal}>+</button>
       ) : (
         pageSections.map((pageSection, index) => (
           <Section
-            index={index}
+            key={index}
             pageSection={pageSection}
-            addPageSection={addPageSection}
-            removePageSection={removePageSection}
-            openModal={openModal}
+            index={index}
+            isUpButtonDisabled={index === 0}
+            isDownButtonDisabled={index === pageSections.length - 1}
             setPageSectionIndex={setPageSectionIndex}
+            openModal={openModal}
+            removePageSection={removePageSection}
+            addPageSection={addPageSection}
           />
         ))
       )}
 
       {isModalOpen && (
         <SectionsModal
-          closeModal={closeModal}
+          pageSectionIndex={pageSectionIndex}
           addPageSection={addPageSection}
+          closeModal={closeModal}
         />
       )}
     </div>
