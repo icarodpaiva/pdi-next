@@ -47,7 +47,9 @@ export default function Admin() {
         <h1>Criador de Página dinâmica</h1>
 
         {pageSectionsData.length <= 0 ? (
-          <button onClick={openModal}>+</button>
+          <button onClick={openModal} style={{ padding: 16 }}>
+            +
+          </button>
         ) : (
           <form onSubmit={handleSubmit}>
             {pageSectionsData.map((pageSectionData, index) => (

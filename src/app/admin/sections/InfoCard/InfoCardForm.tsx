@@ -1,7 +1,7 @@
 import { DynamicForm } from "../../components/DynamicForm"
 
 import type { PageSectionData } from "../../page"
-import { InfoCardProps } from "./"
+import type { InfoCardProps } from "./"
 import type { FormField } from "../../components/DynamicForm"
 
 export interface InfoCardFormProps {
@@ -19,6 +19,20 @@ export const InfoCardForm = (props: InfoCardFormProps) => {
       label: "Imagem",
       placeholder: "Imagem",
       type: "text",
+      required: true
+    },
+    {
+      name: "name",
+      label: "Nome",
+      type: "text",
+      placeholder: "Nome",
+      required: true
+    },
+    {
+      name: "description",
+      label: "Descrição",
+      type: "text",
+      placeholder: "Descrição",
       required: true
     }
   ]
