@@ -2,9 +2,12 @@
 
 import { useState } from "react"
 
+import Link from "next/link"
+
 import { Section } from "./components/Section"
 import { SectionsModal } from "./components/SectionsModal"
 
+import { useTemporaryPagesContext } from "../contexts/TemporaryPagesContext"
 import { sectionComponents } from "./sections"
 import { addArrayItem } from "./utils/addArrayItem"
 
@@ -23,6 +26,8 @@ export default function Admin() {
   const [pageSectionsData, setPageSectionsData] = useState<PageSectionData[]>(
     []
   )
+
+  const { setPages } = useTemporaryPagesContext()
 
   const openModal = () => {
     setIsModalOpen(true)
@@ -44,12 +49,19 @@ export default function Admin() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    setPages?.(prevPages => [
+      ...prevPages,
+      { slug: pageSlug, pageSectionsData }
+    ])
   }
 
   return (
     <div className={style.main}>
       <div>
         <h1>Criador de Página dinâmica</h1>
+
+        <Link href={`/lp/${pageSlug}`}>Navegar para LP</Link>
 
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: 30 }}>
