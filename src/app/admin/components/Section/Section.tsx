@@ -85,7 +85,7 @@ export const Section = ({
         {PageSectionForm && (
           <PageSectionForm
             index={index}
-            pageSection={pageSectionData.pageSection}
+            pageSectionData={pageSectionData}
             setPageSectionsData={setPageSectionsData}
           />
         )}

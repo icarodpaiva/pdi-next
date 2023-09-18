@@ -6,7 +6,7 @@ import type { FormField } from "../../components/DynamicForm"
 
 export interface TitleAndSubtitleFormProps {
   index: number
-  pageSection: string
+  pageSectionData: PageSectionData
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 

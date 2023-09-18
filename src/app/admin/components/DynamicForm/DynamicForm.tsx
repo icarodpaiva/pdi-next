@@ -8,7 +8,7 @@ interface DynamicFormProps<PropsKeys = string> {
   title: string
   formFields: FormField<PropsKeys>[]
   index: number
-  pageSection: string
+  pageSectionData: PageSectionData
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
@@ -26,10 +26,10 @@ export const DynamicForm = ({
   title,
   formFields,
   index,
-  pageSection,
+  pageSectionData,
   setPageSectionsData
 }: DynamicFormProps) => {
-  const [formData, setFormData] = useState<FormData>({})
+  const [formData, setFormData] = useState<FormData>(pageSectionData.formData)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -40,7 +40,7 @@ export const DynamicForm = ({
       const updatedPageSectionsData = [...prevPageSectionsData]
 
       updatedPageSectionsData[index] = {
-        pageSection,
+        pageSection: pageSectionData.pageSection,
         formData: {
           ...formData,
           [name]: value

@@ -15,7 +15,7 @@ import style from "./page.module.css"
 
 export interface PageSectionData {
   pageSection: string
-  formData: { [key: string]: unknown }
+  formData: { [key: string]: string }
 }
 
 export default function Admin() {
