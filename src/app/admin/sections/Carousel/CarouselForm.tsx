@@ -1,6 +1,7 @@
 import { DynamicForm } from "../../components/DynamicForm"
 
 import type { PageSectionData } from "../../page"
+import type { CarouselProps } from "./"
 import type { FormField } from "../../components/DynamicForm"
 
 interface CarouselFormProps {
@@ -9,8 +10,10 @@ interface CarouselFormProps {
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
+type CarouselPropsKeys = keyof CarouselProps
+
 export const CarouselForm = (props: CarouselFormProps) => {
-  const formFields: FormField[] = [
+  const formFields: FormField<CarouselPropsKeys>[] = [
     {
       name: "firstName",
       label: "Primeiro Nome",

@@ -1,6 +1,7 @@
 import { DynamicForm } from "../../components/DynamicForm"
 
 import type { PageSectionData } from "../../page"
+import { InfoCardProps } from "./"
 import type { FormField } from "../../components/DynamicForm"
 
 interface InfoCardFormProps {
@@ -9,8 +10,10 @@ interface InfoCardFormProps {
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
+type InfoCardPropsKeys = keyof InfoCardProps
+
 export const InfoCardForm = (props: InfoCardFormProps) => {
-  const formFields: FormField[] = [
+  const formFields: FormField<InfoCardPropsKeys>[] = [
     {
       name: "image",
       label: "Imagem",

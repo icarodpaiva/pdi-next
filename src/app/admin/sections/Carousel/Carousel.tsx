@@ -1,4 +1,4 @@
-interface CarouselProps {
+export interface CarouselProps {
   firstName: string
   lastName: string
 }

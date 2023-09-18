@@ -2,16 +2,16 @@ import { useState } from "react"
 
 import type { PageSectionData } from "../../page"
 
-interface DynamicFormProps {
+interface DynamicFormProps<PropsKeys = string> {
   title: string
-  formFields: FormField[]
+  formFields: FormField<PropsKeys>[]
   index: number
   pageSection: string
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
-export interface FormField {
-  name: string
+export interface FormField<PropsKeys> {
+  name: PropsKeys
   label: string
   type: string
   placeholder: string

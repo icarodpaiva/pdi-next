@@ -1,4 +1,4 @@
-interface InfoCardProps {
+export interface InfoCardProps {
   image: string
 }
 
