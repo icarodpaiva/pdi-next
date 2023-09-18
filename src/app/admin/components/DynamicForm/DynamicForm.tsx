@@ -20,27 +20,21 @@ export interface FormField<PropsKeys> {
   required?: boolean
 }
 
-type FormData = { [key: string]: string }
-
 export const DynamicForm = ({
   title,
   formFields,
   index,
-  pageSectionData,
+  pageSectionData: { pageSection, formData },
   setPageSectionsData
 }: DynamicFormProps) => {
-  const [formData, setFormData] = useState<FormData>(pageSectionData.formData)
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
-
-    setFormData(prevFormData => ({ ...prevFormData, [name]: value }))
 
     setPageSectionsData((prevPageSectionsData: PageSectionData[]) => {
       const updatedPageSectionsData = [...prevPageSectionsData]
 
       updatedPageSectionsData[index] = {
-        pageSection: pageSectionData.pageSection,
+        pageSection,
         formData: {
           ...formData,
           [name]: value
