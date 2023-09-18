@@ -81,11 +81,13 @@ export const Section = ({
           </button>
         </div>
 
-        <PageSectionForm
-          index={index}
-          pageSection={pageSection}
-          setPageSectionsData={setPageSectionsData}
-        />
+        {PageSectionForm && (
+          <PageSectionForm
+            index={index}
+            pageSection={pageSection}
+            setPageSectionsData={setPageSectionsData}
+          />
+        )}
       </div>
 
       <button type="button" onClick={() => handleOpenModal(index + 1)}>

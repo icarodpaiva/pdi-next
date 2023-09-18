@@ -4,7 +4,7 @@ import type { PageSectionData } from "../../page"
 import { InfoCardProps } from "./"
 import type { FormField } from "../../components/DynamicForm"
 
-interface InfoCardFormProps {
+export interface InfoCardFormProps {
   index: number
   pageSection: string
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>

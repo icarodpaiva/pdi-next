@@ -4,7 +4,7 @@ import type { PageSectionData } from "../../page"
 import type { CarouselProps } from "./"
 import type { FormField } from "../../components/DynamicForm"
 
-interface CarouselFormProps {
+export interface CarouselFormProps {
   index: number
   pageSection: string
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>

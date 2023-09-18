@@ -95,9 +95,14 @@ export default function Admin() {
       <div className={style.previewContainer}>
         <h1>Pré visualização da Página dinâmica</h1>
 
-        {pageSectionsData.map(({ pageSection, formData: props }) => {
+        {pageSectionsData.map(({ pageSection, formData: props }, index) => {
           const PageSectionComponent = sectionComponents[pageSection]
-          return <PageSectionComponent {...props} />
+
+          if (PageSectionComponent) {
+            return <PageSectionComponent key={index} {...props} />
+          }
+
+          return null
         })}
       </div>
     </div>
