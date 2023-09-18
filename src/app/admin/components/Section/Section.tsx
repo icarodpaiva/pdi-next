@@ -1,5 +1,7 @@
 import { sectionForms } from "../../sections"
 
+import type { PageSectionData } from "../../page"
+
 import style from "./Section.module.css"
 
 interface SectionProps {
@@ -11,6 +13,7 @@ interface SectionProps {
   openModal: () => void
   removePageSection: (index: number) => void
   addPageSection: (pageSection: string, index: number) => void
+  setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
 export const Section = ({
@@ -21,7 +24,8 @@ export const Section = ({
   setPageSectionIndex,
   openModal,
   removePageSection,
-  addPageSection
+  addPageSection,
+  setPageSectionsData
 }: SectionProps) => {
   const handleOpenModal = (pageSectionIndex: number) => {
     setPageSectionIndex(pageSectionIndex)
@@ -77,7 +81,11 @@ export const Section = ({
           </button>
         </div>
 
-        <PageSectionForm />
+        <PageSectionForm
+          index={index}
+          pageSection={pageSection}
+          setPageSectionsData={setPageSectionsData}
+        />
       </div>
 
       <button type="button" onClick={() => handleOpenModal(index + 1)}>

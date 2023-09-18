@@ -1,0 +1,10 @@
+.main {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  padding: 0 16px;
+}
+
+.previewContainer {
+  grid-column: span 2;
+}

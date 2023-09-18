@@ -1,15 +1,11 @@
-import { DynamicForm, type FormField } from "../../components/DynamicForm"
+interface InfoCardProps {
+  image: string
+}
 
-export const InfoCard = () => {
-  const formFields: FormField[] = [
-    {
-      name: "image",
-      label: "Imagem",
-      placeholder: "Imagem",
-      type: "text",
-      required: true
-    }
-  ]
-
-  return <DynamicForm title="Cartão de Informações" formFields={formFields} />
+export const InfoCard = ({ image }: InfoCardProps) => {
+  return (
+    <div>
+      <img alt="image" src={image} />
+    </div>
+  )
 }
