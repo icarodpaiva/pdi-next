@@ -8,7 +8,7 @@ export const TitleAndSubtitle = ({
   subtitle
 }: TitleAndSubtitleProps) => {
   return (
-    <div style={{ border: "1px solid black" }}>
+    <div>
       <h1>{title}</h1>
       <h2>{subtitle}</h2>
     </div>

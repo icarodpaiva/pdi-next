@@ -1,10 +1,27 @@
 .main {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   padding: 0 16px;
 }
 
+.editorContainer {
+}
+
+.editorContainer form {
+  display: grid;
+  gap: 16px;
+  border: 2px solid black;
+  border-radius: 16px;
+  padding: 16px;
+}
+
+.addSectionButton {
+  max-width: fit-content;
+  justify-self: center;
+  background: blue;
+  color: white;
+}
+
 .previewContainer {
-  grid-column: span 2;
 }

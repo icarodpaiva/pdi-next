@@ -1,2 +1,34 @@
 .sectionContainer {
+  display: grid;
+  gap: 16px;
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.sectionContainer > button {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.sectionContainer .buttonsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px;
+}
+
+@media screen and (min-width: 1280px) {
+  .sectionContainer .buttonsContainer {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.sectionContainer .buttonsContainer button {
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.sectionContainer .buttonsContainer button:not(:disabled) {
+  background: blue;
+  color: white;
 }

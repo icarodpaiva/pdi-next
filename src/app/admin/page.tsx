@@ -29,11 +29,12 @@ export default function Admin() {
 
   const { setPages } = useTemporaryPagesContext()
 
-  const openModal = () => {
+  const handleOpenModal = (index: number) => {
     setIsModalOpen(true)
+    setPageSectionIndex(index)
   }
 
-  const closeModal = () => {
+  const handleCloseModal = () => {
     setIsModalOpen(false)
   }
 
@@ -58,13 +59,13 @@ export default function Admin() {
 
   return (
     <div className={style.main}>
-      <div>
-        <h1>Criador de Página dinâmica</h1>
+      <div className={style.editorContainer}>
+        <h1>Editor</h1>
 
         <Link href={`/lp/${pageSlug}`}>Navegar para LP</Link>
 
         <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: 30 }}>
+          <div>
             <label htmlFor="page-slug">Nome da Página</label>
 
             <input
@@ -80,41 +81,61 @@ export default function Admin() {
           </div>
 
           {pageSectionsData.length <= 0 ? (
-            <button type="button" onClick={openModal} style={{ padding: 16 }}>
+            <button
+              type="button"
+              onClick={() => handleOpenModal(0)}
+              className={style.addSectionButton}
+            >
               +
             </button>
           ) : (
-            <>
-              {pageSectionsData.map((pageSectionData, index) => (
+            pageSectionsData.map((pageSectionData, index) => (
+              <>
+                {index === 0 && (
+                  <button
+                    type="button"
+                    onClick={() => handleOpenModal(index)}
+                    className={style.addSectionButton}
+                  >
+                    +
+                  </button>
+                )}
+
                 <Section
                   key={index}
                   pageSectionData={pageSectionData}
                   index={index}
                   isUpButtonDisabled={index === 0}
                   isDownButtonDisabled={index === pageSectionsData.length - 1}
-                  setPageSectionIndex={setPageSectionIndex}
-                  openModal={openModal}
                   addPageSection={addPageSection}
                   setPageSectionsData={setPageSectionsData}
                 />
-              ))}
 
-              <button type="submit">Salvar Página</button>
-            </>
+                <button
+                  type="button"
+                  onClick={() => handleOpenModal(index + 1)}
+                  className={style.addSectionButton}
+                >
+                  +
+                </button>
+              </>
+            ))
           )}
+
+          <button type="submit">Salvar Página</button>
         </form>
 
         {isModalOpen && (
           <SectionsModal
             pageSectionIndex={pageSectionIndex}
             addPageSection={addPageSection}
-            closeModal={closeModal}
+            handleCloseModal={handleCloseModal}
           />
         )}
       </div>
 
       <div className={style.previewContainer}>
-        <h1>Pré visualização da Página dinâmica</h1>
+        <h1>Pré-visualização</h1>
 
         {pageSectionsData.map(({ pageSection, formData: props }, index) => {
           const PageSectionComponent = sectionComponents[pageSection]

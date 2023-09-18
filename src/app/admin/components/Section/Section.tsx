@@ -10,8 +10,6 @@ interface SectionProps {
   index: number
   isUpButtonDisabled: boolean
   isDownButtonDisabled: boolean
-  setPageSectionIndex: (pageSectionIndex: number) => void
-  openModal: () => void
   addPageSection: (pageSectionData: PageSectionData, index: number) => void
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
@@ -21,16 +19,9 @@ export const Section = ({
   index,
   isUpButtonDisabled,
   isDownButtonDisabled,
-  setPageSectionIndex,
-  openModal,
   addPageSection,
   setPageSectionsData
 }: SectionProps) => {
-  const handleOpenModal = (pageSectionIndex: number) => {
-    setPageSectionIndex(pageSectionIndex)
-    openModal()
-  }
-
   const handleRemovePageSection = () => {
     setPageSectionsData(prevPageSectionsData =>
       removeArrayItem(prevPageSectionsData, index)
@@ -50,51 +41,41 @@ export const Section = ({
 
   return (
     <div className={style.sectionContainer}>
-      <hr />
-      <button type="button" onClick={() => handleOpenModal(index)}>
-        +
-      </button>
+      <div className={style.buttonsContainer}>
+        <button
+          type="button"
+          disabled={isUpButtonDisabled}
+          onClick={() => handleMovePageSection("up")}
+        >
+          Mover para cima
+        </button>
 
-      <div>
-        <div className={style.buttonsContainer}>
-          <button
-            type="button"
-            disabled={isUpButtonDisabled}
-            onClick={() => handleMovePageSection("up")}
-          >
-            Mover para cima
-          </button>
+        <button
+          type="button"
+          disabled={isDownButtonDisabled}
+          onClick={() => handleMovePageSection("down")}
+        >
+          Mover para baixo
+        </button>
 
-          <button
-            type="button"
-            disabled={isDownButtonDisabled}
-            onClick={() => handleMovePageSection("down")}
-          >
-            Mover para baixo
-          </button>
+        <button type="button" onClick={handleDuplicatePageSection}>
+          Duplicar
+        </button>
 
-          <button type="button" onClick={handleDuplicatePageSection}>
-            Duplicar
-          </button>
-
-          <button type="button" onClick={handleRemovePageSection}>
-            Excluir
-          </button>
-        </div>
-
-        {PageSectionForm && (
-          <PageSectionForm
-            index={index}
-            pageSectionData={pageSectionData}
-            setPageSectionsData={setPageSectionsData}
-          />
-        )}
+        <button type="button" onClick={handleRemovePageSection}>
+          Excluir
+        </button>
       </div>
 
-      <button type="button" onClick={() => handleOpenModal(index + 1)}>
-        +
-      </button>
       <hr />
+
+      {PageSectionForm && (
+        <PageSectionForm
+          index={index}
+          pageSectionData={pageSectionData}
+          setPageSectionsData={setPageSectionsData}
+        />
+      )}
     </div>
   )
 }

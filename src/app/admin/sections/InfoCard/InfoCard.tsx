@@ -6,14 +6,8 @@ export interface InfoCardProps {
 
 export const InfoCard = ({ image, name, description }: InfoCardProps) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        border: "1px solid black"
-      }}
-    >
-      <img alt="image" src={image} style={{ marginRight: 10 }} />
+    <div>
+      <img alt="image" src={image} />
 
       <div>
         <h1>{name}</h1>
