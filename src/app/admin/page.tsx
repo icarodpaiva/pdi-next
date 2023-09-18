@@ -18,6 +18,7 @@ export interface PageSectionData {
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
+  const [pageSlug, setPageSlug] = useState("")
   const [pageSectionIndex, setPageSectionIndex] = useState(0)
   const [pageSectionsData, setPageSectionsData] = useState<PageSectionData[]>(
     []
@@ -37,6 +38,10 @@ export default function Admin() {
     )
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPageSlug(e.target.value)
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
   }
@@ -46,29 +51,46 @@ export default function Admin() {
       <div>
         <h1>Criador de Página dinâmica</h1>
 
-        {pageSectionsData.length <= 0 ? (
-          <button onClick={openModal} style={{ padding: 16 }}>
-            +
-          </button>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            {pageSectionsData.map((pageSectionData, index) => (
-              <Section
-                key={index}
-                pageSectionData={pageSectionData}
-                index={index}
-                isUpButtonDisabled={index === 0}
-                isDownButtonDisabled={index === pageSectionsData.length - 1}
-                setPageSectionIndex={setPageSectionIndex}
-                openModal={openModal}
-                addPageSection={addPageSection}
-                setPageSectionsData={setPageSectionsData}
-              />
-            ))}
+        <form onSubmit={handleSubmit}>
+          <div style={{ marginBottom: 30 }}>
+            <label htmlFor="page-slug">Nome da Página</label>
 
-            <button type="submit">Salvar Página</button>
-          </form>
-        )}
+            <input
+              id="page-slug"
+              name="page-slug"
+              type="text"
+              placeholder="Nome da Página"
+              value={pageSlug}
+              onChange={handleChange}
+              autoComplete="off"
+              required
+            />
+          </div>
+
+          {pageSectionsData.length <= 0 ? (
+            <button type="button" onClick={openModal} style={{ padding: 16 }}>
+              +
+            </button>
+          ) : (
+            <>
+              {pageSectionsData.map((pageSectionData, index) => (
+                <Section
+                  key={index}
+                  pageSectionData={pageSectionData}
+                  index={index}
+                  isUpButtonDisabled={index === 0}
+                  isDownButtonDisabled={index === pageSectionsData.length - 1}
+                  setPageSectionIndex={setPageSectionIndex}
+                  openModal={openModal}
+                  addPageSection={addPageSection}
+                  setPageSectionsData={setPageSectionsData}
+                />
+              ))}
+
+              <button type="submit">Salvar Página</button>
+            </>
+          )}
+        </form>
 
         {isModalOpen && (
           <SectionsModal
