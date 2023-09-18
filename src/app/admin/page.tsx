@@ -6,6 +6,8 @@ import { Section } from "./components/Section"
 import { SectionsModal } from "./components/SectionsModal"
 
 import { sectionComponents } from "./sections"
+import { addArrayItem } from "./utils/addArrayItem"
+import { removeArrayItem } from "./utils/removeArrayItem"
 
 import style from "./page.module.css"
 
@@ -32,23 +34,15 @@ export default function Admin() {
   }
 
   const addPageSection = (pageSection: string, index: number) => {
-    setPageSections(prevPageSections => {
-      const updatedPageSections = [...prevPageSections]
-
-      updatedPageSections.splice(index, 0, pageSection)
-
-      return updatedPageSections
-    })
+    setPageSections(prevPageSections =>
+      addArrayItem(prevPageSections, index, pageSection)
+    )
   }
 
   const removePageSection = (index: number) => {
-    setPageSections(prevPageSections => {
-      const updatedPageSections = [...prevPageSections]
-
-      updatedPageSections.splice(index, 1)
-
-      return updatedPageSections
-    })
+    setPageSections(prevPageSections =>
+      removeArrayItem(prevPageSections, index)
+    )
   }
 
   const handleSubmit = (e: React.FormEvent) => {
