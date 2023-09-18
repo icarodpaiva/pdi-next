@@ -7,7 +7,6 @@ import { SectionsModal } from "./components/SectionsModal"
 
 import { sectionComponents } from "./sections"
 import { addArrayItem } from "./utils/addArrayItem"
-import { removeArrayItem } from "./utils/removeArrayItem"
 
 import style from "./page.module.css"
 
@@ -20,7 +19,6 @@ export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const [pageSectionIndex, setPageSectionIndex] = useState(0)
-  const [pageSections, setPageSections] = useState<string[]>([])
   const [pageSectionsData, setPageSectionsData] = useState<PageSectionData[]>(
     []
   )
@@ -33,15 +31,9 @@ export default function Admin() {
     setIsModalOpen(false)
   }
 
-  const addPageSection = (pageSection: string, index: number) => {
-    setPageSections(prevPageSections =>
-      addArrayItem(prevPageSections, index, pageSection)
-    )
-  }
-
-  const removePageSection = (index: number) => {
-    setPageSections(prevPageSections =>
-      removeArrayItem(prevPageSections, index)
+  const addPageSection = (pageSectionData: PageSectionData, index: number) => {
+    setPageSectionsData(prevPageSectionsData =>
+      addArrayItem(prevPageSectionsData, index, pageSectionData)
     )
   }
 
@@ -54,20 +46,19 @@ export default function Admin() {
       <div>
         <h1>Criador de Página dinâmica</h1>
 
-        {pageSections.length <= 0 ? (
+        {pageSectionsData.length <= 0 ? (
           <button onClick={openModal}>+</button>
         ) : (
           <form onSubmit={handleSubmit}>
-            {pageSections.map((pageSection, index) => (
+            {pageSectionsData.map((pageSectionData, index) => (
               <Section
                 key={index}
-                pageSection={pageSection}
+                pageSectionData={pageSectionData}
                 index={index}
                 isUpButtonDisabled={index === 0}
-                isDownButtonDisabled={index === pageSections.length - 1}
+                isDownButtonDisabled={index === pageSectionsData.length - 1}
                 setPageSectionIndex={setPageSectionIndex}
                 openModal={openModal}
-                removePageSection={removePageSection}
                 addPageSection={addPageSection}
                 setPageSectionsData={setPageSectionsData}
               />

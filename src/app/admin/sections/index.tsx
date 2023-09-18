@@ -11,9 +11,9 @@ export const sectionForms: Sections = {
   InfoCard: (props: InfoCardFormProps) => <InfoCardForm {...props} />
 }
 
+export const pageSections = Object.keys(sectionForms)
+
 export const sectionComponents: Sections = {
   Carousel: (props: CarouselProps) => <Carousel {...props} />,
   InfoCard: (props: InfoCardProps) => <InfoCard {...props} />
 }
-
-export const sections = Object.keys(sectionForms)

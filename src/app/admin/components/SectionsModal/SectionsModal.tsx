@@ -1,10 +1,12 @@
-import { sections } from "../../sections"
+import { pageSections } from "../../sections"
+
+import type { PageSectionData } from "../../page"
 
 import style from "./SectionsModal.module.css"
 
 interface SectionsModalProps {
   pageSectionIndex: number
-  addPageSection: (pageSection: string, index: number) => void
+  addPageSection: (pageSectionData: PageSectionData, index: number) => void
   closeModal: () => void
 }
 
@@ -13,8 +15,8 @@ export const SectionsModal = ({
   addPageSection,
   closeModal
 }: SectionsModalProps) => {
-  const handleChooseSection = (section: string) => {
-    addPageSection(section, pageSectionIndex)
+  const handleChooseSection = (pageSection: string) => {
+    addPageSection({ pageSection, formData: {} }, pageSectionIndex)
     closeModal()
   }
 
@@ -24,10 +26,10 @@ export const SectionsModal = ({
         <button onClick={closeModal}>X</button>
 
         <ul>
-          {sections.map(section => (
-            <li key={section}>
-              <button onClick={() => handleChooseSection(section)}>
-                {section}
+          {pageSections.map(pageSection => (
+            <li key={pageSection}>
+              <button onClick={() => handleChooseSection(pageSection)}>
+                {pageSection}
               </button>
             </li>
           ))}

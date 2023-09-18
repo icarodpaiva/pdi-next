@@ -1,29 +1,28 @@
 import { sectionForms } from "../../sections"
+import { removeArrayItem } from "../../utils/removeArrayItem"
 
 import type { PageSectionData } from "../../page"
 
 import style from "./Section.module.css"
 
 interface SectionProps {
-  pageSection: string
+  pageSectionData: PageSectionData
   index: number
   isUpButtonDisabled: boolean
   isDownButtonDisabled: boolean
   setPageSectionIndex: (pageSectionIndex: number) => void
   openModal: () => void
-  removePageSection: (index: number) => void
-  addPageSection: (pageSection: string, index: number) => void
+  addPageSection: (pageSectionData: PageSectionData, index: number) => void
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
 export const Section = ({
-  pageSection,
+  pageSectionData,
   index,
   isUpButtonDisabled,
   isDownButtonDisabled,
   setPageSectionIndex,
   openModal,
-  removePageSection,
   addPageSection,
   setPageSectionsData
 }: SectionProps) => {
@@ -32,20 +31,22 @@ export const Section = ({
     openModal()
   }
 
+  const handleRemovePageSection = () => {
+    setPageSectionsData(prevPageSectionsData =>
+      removeArrayItem(prevPageSectionsData, index)
+    )
+  }
+
   const handleMovePageSection = (moveTo: "up" | "down") => {
-    removePageSection(index)
-    addPageSection(pageSection, moveTo === "up" ? index - 1 : index + 1)
+    handleRemovePageSection()
+    addPageSection(pageSectionData, moveTo === "up" ? index - 1 : index + 1)
   }
 
   const handleDuplicatePageSection = () => {
-    addPageSection(pageSection, index + 1)
+    addPageSection(pageSectionData, index + 1)
   }
 
-  const handleRemovePageSection = () => {
-    removePageSection(index)
-  }
-
-  const PageSectionForm = sectionForms[pageSection]
+  const PageSectionForm = sectionForms[pageSectionData.pageSection]
 
   return (
     <div className={style.sectionContainer}>
@@ -84,7 +85,7 @@ export const Section = ({
         {PageSectionForm && (
           <PageSectionForm
             index={index}
-            pageSection={pageSection}
+            pageSection={pageSectionData.pageSection}
             setPageSectionsData={setPageSectionsData}
           />
         )}
