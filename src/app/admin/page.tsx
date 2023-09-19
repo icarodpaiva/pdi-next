@@ -90,7 +90,7 @@ export default function Admin() {
             </button>
           ) : (
             pageSectionsData.map((pageSectionData, index) => (
-              <>
+              <div key={index}>
                 {index === 0 && (
                   <button
                     type="button"
@@ -102,7 +102,6 @@ export default function Admin() {
                 )}
 
                 <Section
-                  key={index}
                   pageSectionData={pageSectionData}
                   index={index}
                   isUpButtonDisabled={index === 0}
@@ -118,7 +117,7 @@ export default function Admin() {
                 >
                   +
                 </button>
-              </>
+              </div>
             ))
           )}
 
