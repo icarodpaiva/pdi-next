@@ -1,17 +1,18 @@
-"use client"
+'use client'
 
-import { useState } from "react"
+import { useState } from 'react'
 
-import Link from "next/link"
+import Link from 'next/link'
 
-import { Section } from "./components/Section"
-import { SectionsModal } from "./components/SectionsModal"
+import { Section } from './components/Section'
+import { SectionsModal } from './components/SectionsModal'
 
-import { useTemporaryPagesContext } from "../contexts/TemporaryPagesContext"
-import { sectionComponents } from "./sections"
-import { addArrayItem } from "./utils/addArrayItem"
+import { useTemporaryPagesContext } from '../contexts/TemporaryPagesContext'
+import { sectionComponents } from './sections'
+import { addArrayItem } from './utils/addArrayItem'
 
-import style from "./page.module.css"
+import style from './page.module.css'
+import { DynamicFormV2 } from './components/DynamicFormV2'
 
 export interface PageSectionData {
   pageSection: string
@@ -21,7 +22,7 @@ export interface PageSectionData {
 export default function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const [pageSlug, setPageSlug] = useState("")
+  const [pageSlug, setPageSlug] = useState('')
   const [pageSectionIndex, setPageSectionIndex] = useState(0)
   const [pageSectionsData, setPageSectionsData] = useState<PageSectionData[]>(
     []
@@ -63,6 +64,17 @@ export default function Admin() {
         <h1>Editor</h1>
 
         <Link href={`/lp/${pageSlug}`}>Navegar para LP</Link>
+
+        <DynamicFormV2<{ foo: string; bar: number }>
+          schema={{
+            type: 'object',
+            properties: {
+              foo: { type: 'string' },
+              bar: { type: 'number' }
+            },
+            required: ['foo', 'bar']
+          }}
+        />
 
         <form onSubmit={handleSubmit}>
           <div>
