@@ -1,4 +1,4 @@
-export interface InfoCardComplexProps {
+interface InfoCardComplexProps {
   image1: string
   name: string
   image2: string

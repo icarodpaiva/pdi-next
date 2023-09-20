@@ -1,4 +1,4 @@
-import { pageSections } from "../../sections"
+import { pageSections } from "../../utils"
 
 import type { PageSectionData } from "../../page"
 

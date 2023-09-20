@@ -1,4 +1,4 @@
-import { sectionForms } from "../../sections"
+import { sectionForms } from "../../utils"
 import { removeArrayItem } from "../../utils/removeArrayItem"
 
 import type { PageSectionData } from "../../page"

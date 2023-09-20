@@ -1,4 +1,6 @@
-export interface InfoCardProps {
+import type { JSONSchemaType } from "ajv"
+
+interface InfoCardProps {
   image: string
   name: string
   description: string
@@ -15,4 +17,14 @@ export const InfoCard = ({ image, name, description }: InfoCardProps) => {
       </div>
     </div>
   )
+}
+
+export const InfoCardSchema: JSONSchemaType<InfoCardProps> = {
+  type: "object",
+  properties: {
+    image: { type: "string" },
+    name: { type: "string" },
+    description: { type: "string" }
+  },
+  required: ["image", "name", "description"]
 }

@@ -1,4 +1,6 @@
-export interface TitleAndSubtitleProps {
+import type { JSONSchemaType } from "ajv"
+
+interface TitleAndSubtitleProps {
   title: string
   subtitle: string
 }
@@ -13,4 +15,13 @@ export const TitleAndSubtitle = ({
       <h2>{subtitle}</h2>
     </div>
   )
+}
+
+export const TitleAndSubtitleSchema: JSONSchemaType<TitleAndSubtitleProps> = {
+  type: "object",
+  properties: {
+    title: { type: "string" },
+    subtitle: { type: "string" }
+  },
+  required: ["title", "subtitle"]
 }
