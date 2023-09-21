@@ -12,7 +12,9 @@ for (const componentName in components) {
 
   if (schemas.hasOwnProperty(schemaKey)) {
     const schema = schemas[schemaKey]
-    sectionForms[componentName] = () => <DynamicFormV2 schema={schema} />
+    sectionForms[componentName] = (props: any) => (
+      <DynamicFormV2 schema={schema} {...props} />
+    )
   }
 }
 

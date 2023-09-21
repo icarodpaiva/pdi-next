@@ -2,29 +2,49 @@ import Form from "@rjsf/core"
 
 import { customizeValidator } from "@rjsf/validator-ajv8"
 
+import type { IChangeEvent } from "@rjsf/core"
 import type { JSONSchemaType } from "ajv"
+import type { PageSectionData } from "../../page"
 
 interface DynamicFormV2Props<ComponentProps> {
   schema: JSONSchemaType<ComponentProps>
+  index: number
+  pageSectionData: PageSectionData
+  setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
 export const DynamicFormV2 = <ComponentProps extends object>({
-  schema
+  schema,
+  index,
+  pageSectionData: { pageSection, formData },
+  setPageSectionsData
 }: DynamicFormV2Props<ComponentProps>) => {
   type Schema = JSONSchemaType<ComponentProps>
 
   const validator = customizeValidator<any, Schema>()
+
+  const handleChange = (
+    data: IChangeEvent<any, JSONSchemaType<ComponentProps>, any>
+  ) => {
+    setPageSectionsData((prevPageSectionsData: PageSectionData[]) => {
+      const updatedPageSectionsData = [...prevPageSectionsData]
+
+      updatedPageSectionsData[index] = {
+        pageSection,
+        formData: data.formData
+      }
+
+      return updatedPageSectionsData
+    })
+  }
 
   return (
     <Form<any, Schema>
       _internalFormWrapper="div"
       schema={schema}
       validator={validator}
-      onChange={e => console.log(e)}
-      onBlur={e => console.log(e)}
-      onFocus={e => console.log(e)}
-      onError={e => console.log(e)}
-      onSubmit={e => console.log(e)}
+      formData={formData}
+      onChange={handleChange}
     >
       <></>
     </Form>
