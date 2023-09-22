@@ -1,4 +1,7 @@
-import Form from "@rjsf/core"
+import { withTheme } from "@rjsf/core"
+import { Theme } from "@rjsf/mui"
+
+const Form = withTheme(Theme)
 
 import { customizeValidator } from "@rjsf/validator-ajv8"
 
@@ -39,7 +42,7 @@ export const DynamicForm = <ComponentProps extends object>({
   }
 
   return (
-    <Form<any, Schema>
+    <Form
       _internalFormWrapper="div"
       schema={schema}
       validator={validator}
