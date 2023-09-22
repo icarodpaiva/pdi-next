@@ -1,4 +1,4 @@
-import { DynamicFormV2 } from "../components/DynamicFormV2"
+import { DynamicForm } from "../components/DynamicForm"
 import { components, schemas } from "../sections"
 
 type Sections = { [key: string]: (props: any) => React.ReactNode }
@@ -13,7 +13,7 @@ for (const componentName in components) {
   if (schemas.hasOwnProperty(schemaKey)) {
     const schema = schemas[schemaKey]
     sectionForms[componentName] = (props: any) => (
-      <DynamicFormV2 schema={schema} {...props} />
+      <DynamicForm schema={schema} {...props} />
     )
   }
 }

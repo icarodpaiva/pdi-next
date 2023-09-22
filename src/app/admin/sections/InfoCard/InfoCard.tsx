@@ -1,18 +1,27 @@
 import type { JSONSchemaType } from "ajv"
 
 interface InfoCardProps {
-  image: string
-  name: string
+  image: Image
+  title: string
   description: string
 }
 
-export const InfoCard = ({ image, name, description }: InfoCardProps) => {
+interface Image {
+  src: string
+  alt: string
+}
+
+export const InfoCard = ({
+  image: { src, alt },
+  title,
+  description
+}: InfoCardProps) => {
   return (
     <div>
-      <img alt="image" src={image} />
+      <img src={src} alt={alt} />
 
       <div>
-        <h1>{name}</h1>
+        <h1>{title}</h1>
         <p>{description}</p>
       </div>
     </div>
@@ -20,11 +29,20 @@ export const InfoCard = ({ image, name, description }: InfoCardProps) => {
 }
 
 export const InfoCardSchema: JSONSchemaType<InfoCardProps> = {
+  title: "Info Card",
   type: "object",
   properties: {
-    image: { type: "string" },
-    name: { type: "string" },
-    description: { type: "string" }
+    image: {
+      title: "Image",
+      type: "object",
+      properties: {
+        src: { title: "Image link", type: "string" },
+        alt: { title: "Image description", type: "string" }
+      },
+      required: ["src", "alt"]
+    },
+    title: { title: "Title", type: "string" },
+    description: { title: "Description", type: "string" }
   },
-  required: ["image", "name", "description"]
+  required: ["image", "title", "description"]
 }

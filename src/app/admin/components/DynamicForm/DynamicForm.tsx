@@ -1,42 +1,37 @@
-"use client"
+import Form from "@rjsf/core"
 
+import { customizeValidator } from "@rjsf/validator-ajv8"
+
+import type { IChangeEvent } from "@rjsf/core"
+import type { JSONSchemaType } from "ajv"
 import type { PageSectionData } from "../../page"
 
-interface DynamicFormProps<PropsKeys = string> {
-  title: string
-  formFields: FormField<PropsKeys>[]
+interface DynamicFormProps<ComponentProps> {
+  schema: JSONSchemaType<ComponentProps>
   index: number
   pageSectionData: PageSectionData
   setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
 }
 
-export interface FormField<PropsKeys> {
-  name: PropsKeys
-  label: string
-  type: string
-  placeholder: string
-  required?: boolean
-}
-
-export const DynamicForm = ({
-  title,
-  formFields,
+export const DynamicForm = <ComponentProps extends object>({
+  schema,
   index,
   pageSectionData: { pageSection, formData },
   setPageSectionsData
-}: DynamicFormProps) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
+}: DynamicFormProps<ComponentProps>) => {
+  type Schema = JSONSchemaType<ComponentProps>
 
+  const validator = customizeValidator<any, Schema>()
+
+  const handleChange = (
+    data: IChangeEvent<any, JSONSchemaType<ComponentProps>, any>
+  ) => {
     setPageSectionsData((prevPageSectionsData: PageSectionData[]) => {
       const updatedPageSectionsData = [...prevPageSectionsData]
 
       updatedPageSectionsData[index] = {
         pageSection,
-        formData: {
-          ...formData,
-          [name]: value
-        }
+        formData: data.formData
       }
 
       return updatedPageSectionsData
@@ -44,27 +39,14 @@ export const DynamicForm = ({
   }
 
   return (
-    <div>
-      <h2>{title}</h2>
-
-      {formFields.map(({ name, label, type, placeholder, required }) => (
-        <div key={name}>
-          <label htmlFor={name}>{label}</label>
-
-          <input
-            id={name}
-            name={name}
-            type={type}
-            placeholder={placeholder}
-            value={formData[name] || ""}
-            onChange={handleChange}
-            autoComplete="off"
-            required={required}
-          />
-        </div>
-      ))}
-    </div>
+    <Form<any, Schema>
+      _internalFormWrapper="div"
+      schema={schema}
+      validator={validator}
+      formData={formData}
+      onChange={handleChange}
+    >
+      <></>
+    </Form>
   )
 }
-
-export default DynamicForm
