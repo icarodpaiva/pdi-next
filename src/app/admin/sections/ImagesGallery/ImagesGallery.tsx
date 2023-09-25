@@ -22,7 +22,7 @@ export const ImagesGallery = ({ title, images = [] }: ImagesGalleryProps) => {
   )
 }
 
-export const ImagesGallerySchema: JSONSchemaType<ImagesGalleryProps> = {
+export const schema: JSONSchemaType<ImagesGalleryProps> = {
   title: "Images Gallery",
   type: "object",
   properties: {

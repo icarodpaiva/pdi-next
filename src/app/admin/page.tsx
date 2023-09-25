@@ -8,7 +8,7 @@ import { Section } from "./components/Section"
 import { SectionsModal } from "./components/SectionsModal"
 
 import { useTemporaryPagesContext } from "../contexts/TemporaryPagesContext"
-import { sectionComponents } from "./utils"
+import { sectionComponents } from "./helpers/sections"
 import { addArrayItem } from "./utils/addArrayItem"
 
 import style from "./page.module.css"

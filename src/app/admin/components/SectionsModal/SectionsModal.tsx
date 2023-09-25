@@ -1,4 +1,4 @@
-import { pageSections } from "../../utils"
+import { pageSections } from "../../helpers/sections"
 
 import type { PageSectionData } from "../../page"
 

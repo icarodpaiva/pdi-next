@@ -28,7 +28,7 @@ export const InfoCard = ({
   )
 }
 
-export const InfoCardSchema: JSONSchemaType<InfoCardProps> = {
+export const schema: JSONSchemaType<InfoCardProps> = {
   title: "Info Card",
   type: "object",
   properties: {

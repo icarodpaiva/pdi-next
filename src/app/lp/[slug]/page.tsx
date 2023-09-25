@@ -4,7 +4,7 @@ import Link from "next/link"
 
 import { useTemporaryPagesContext } from "@/app/contexts/TemporaryPagesContext"
 
-import { sectionComponents } from "@/app/admin/utils"
+import { sectionComponents } from "@/app/admin/helpers/sections"
 
 interface LandingPageProps {
   params: {

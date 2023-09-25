@@ -1,9 +1,2 @@
-import { ImagesGallery, ImagesGallerySchema } from "./ImagesGallery"
-import { InfoCard, InfoCardSchema } from "./InfoCard"
-
-export const components = { ImagesGallery, InfoCard }
-
-export const schemas = {
-  ImagesGallerySchema,
-  InfoCardSchema
-}
+export * as ImagesGallery from "./ImagesGallery"
+export * as InfoCard from "./InfoCard"
