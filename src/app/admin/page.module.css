@@ -1,5 +1,4 @@
 .main {
-  display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 32px;
   padding: 0 16px;
@@ -24,16 +23,21 @@
 }
 
 .previewContainer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  max-width: calc(50% - 32px);
-  width: 100%;
-  padding-right: 16px;
+  position: relative;
 }
 
-.editorContainer .gridTitle,
-.previewContainer .gridTitle {
-  padding-top: 16px;
+.previewContent {
+  position: sticky;
+  top: 16px;
+
+  padding: 0 16px;
+}
+
+.sectionsContainer {
+  display: grid;
+  gap: 24px;
+}
+
+.divider {
   margin-bottom: 32px;
 }

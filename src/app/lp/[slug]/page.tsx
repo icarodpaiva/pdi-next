@@ -1,7 +1,5 @@
 "use client"
 
-import Link from "next/link"
-
 import { useTemporaryPagesContext } from "@/app/contexts/TemporaryPagesContext"
 import { sectionComponents } from "@/app/admin/helpers/sections"
 
@@ -20,21 +18,15 @@ export default function LandingPage({ params: { slug } }: LandingPageProps) {
 
   return (
     <main>
-      <Link href="/admin">Criar mais páginas</Link>
+      {page?.pageSectionsData.map(({ pageSection, formData: props }, index) => {
+        const PageSectionComponent = sectionComponents[pageSection]
 
-      <div>
-        {page?.pageSectionsData.map(
-          ({ pageSection, formData: props }, index) => {
-            const PageSectionComponent = sectionComponents[pageSection]
+        if (PageSectionComponent) {
+          return <PageSectionComponent key={index} {...props} />
+        }
 
-            if (PageSectionComponent) {
-              return <PageSectionComponent key={index} {...props} />
-            }
-
-            return null
-          }
-        )}
-      </div>
+        return null
+      })}
     </main>
   )
 }

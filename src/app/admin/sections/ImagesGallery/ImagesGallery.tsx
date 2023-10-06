@@ -21,8 +21,8 @@ export const ImagesGallery = ({
       <h1>{title}</h1>
 
       <div className={style.imagesGallery}>
-        {images?.map(image => (
-          <img key={image?.src} src={image?.src} alt={image?.alt} />
+        {images?.map((image, index) => (
+          <img key={index} src={image?.src} alt={image?.alt} />
         ))}
       </div>
     </div>
