@@ -24,4 +24,16 @@
 }
 
 .previewContainer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  max-width: calc(50% - 32px);
+  width: 100%;
+  padding-right: 16px;
+}
+
+.editorContainer .gridTitle,
+.previewContainer .gridTitle {
+  padding-top: 16px;
+  margin-bottom: 32px;
 }

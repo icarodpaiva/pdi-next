@@ -3,8 +3,9 @@
 import Link from "next/link"
 
 import { useTemporaryPagesContext } from "@/app/contexts/TemporaryPagesContext"
-
 import { sectionComponents } from "@/app/admin/helpers/sections"
+
+// import styles from "./page.module.css"
 
 interface LandingPageProps {
   params: {
@@ -18,7 +19,7 @@ export default function LandingPage({ params: { slug } }: LandingPageProps) {
   const page = pages?.find(page => page.slug === slug)
 
   return (
-    <>
+    <main>
       <Link href="/admin">Criar mais páginas</Link>
 
       <div>
@@ -34,6 +35,6 @@ export default function LandingPage({ params: { slug } }: LandingPageProps) {
           }
         )}
       </div>
-    </>
+    </main>
   )
 }

@@ -1,0 +1,27 @@
+.imagesGalleryContainer h1 {
+  margin-bottom: 24px;
+  font-size: 32px;
+  line-height: 36px;
+}
+
+.imagesGallery {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media screen and (min-width: 768px) {
+  .imagesGallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .imagesGallery {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.imagesGallery img {
+  width: 100%;
+}

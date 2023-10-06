@@ -60,7 +60,7 @@ export default function Admin() {
   return (
     <div className={style.main}>
       <div className={style.editorContainer}>
-        <h1>Editor</h1>
+        <h1 className={style.gridTitle}>Editor</h1>
 
         <Link href={`/lp/${pageSlug}`}>Navegar para LP</Link>
 
@@ -134,7 +134,7 @@ export default function Admin() {
       </div>
 
       <div className={style.previewContainer}>
-        <h1>Pré-visualização</h1>
+        <h1 className={style.gridTitle}>Pré-visualização</h1>
 
         {pageSectionsData.map(({ pageSection, formData: props }, index) => {
           const PageSectionComponent = sectionComponents[pageSection]

@@ -10,6 +10,28 @@ body {
   overflow-x: hidden;
 }
 
+main {
+  display: grid;
+  gap: 24px;
+  width: 100%;
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 16px;
+}
+
+@media screen and (min-width: 768px) {
+  main {
+    padding: 0 24px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  main {
+    gap: 32px;
+    padding: 0 32px;
+  }
+}
+
 ul,
 ol,
 li {

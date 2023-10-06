@@ -23,7 +23,10 @@ export const SectionsModal = ({
   return (
     <div className={style.modalContainer}>
       <div className={style.modalContent}>
-        <button onClick={handleCloseModal}>X</button>
+        <div className={style.titleContainer}>
+          <h2>Seções</h2>
+          <button onClick={handleCloseModal}>X</button>
+        </div>
 
         <ul>
           {pageSections.map(pageSection => (

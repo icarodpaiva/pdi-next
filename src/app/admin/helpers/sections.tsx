@@ -10,9 +10,9 @@ export const sectionForms: Sections = {}
 
 export const sectionComponents: Sections = {}
 
-for (const [section, value] of Object.entries(sections)) {
+for (const [section, { schema }] of Object.entries(sections)) {
   sectionForms[section] = (props: any) => (
-    <DynamicForm schema={value.schema} {...props} />
+    <DynamicForm schema={schema} {...props} />
   )
 }
 
