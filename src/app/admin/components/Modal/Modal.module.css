@@ -32,14 +32,3 @@
   font-size: 24px;
   line-height: 30px;
 }
-
-.modalContent ul {
-  display: grid;
-  gap: 8px;
-}
-
-.modalContent ul button {
-  width: 100%;
-  font-size: 24px;
-  line-height: 30px;
-}

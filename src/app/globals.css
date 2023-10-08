@@ -4,6 +4,12 @@
   margin: 0;
 }
 
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 header,
 footer {
   padding: 32px;
@@ -23,6 +29,7 @@ footer {
 }
 
 main {
+  flex: 1;
   display: grid;
   gap: 24px;
   width: 100%;

@@ -15,11 +15,27 @@
   padding: 16px;
 }
 
+.sectionContainer {
+  display: grid;
+  gap: 16px;
+}
+
 .addSectionButton {
   max-width: fit-content;
   justify-self: center;
   background: blue;
   color: white;
+}
+
+ul.sectionsContainer {
+  display: grid;
+  gap: 8px;
+}
+
+ul.sectionsContainer button {
+  width: 100%;
+  font-size: 24px;
+  line-height: 30px;
 }
 
 .previewContainer {
@@ -33,7 +49,7 @@
   padding: 0 16px;
 }
 
-.sectionsContainer {
+div.sectionsContainer {
   display: grid;
   gap: 24px;
 }

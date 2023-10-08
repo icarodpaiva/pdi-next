@@ -1,15 +1,15 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useRef } from "react"
+import { AddCircle } from "@mui/icons-material"
 
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 
 import { Section } from "./components/Section"
-import { SectionsModal } from "./components/SectionsModal"
+import { Modal } from "./components/Modal"
 
 import { useTemporaryPagesContext } from "../contexts/TemporaryPagesContext"
-import { sectionComponents } from "./helpers/sections"
+import { pageSections, sectionComponents } from "./helpers/sections"
 import { addArrayItem } from "./utils/addArrayItem"
 
 import style from "./page.module.css"
@@ -20,7 +20,8 @@ export interface PageSectionData {
 }
 
 export default function Admin() {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isSectionsModalOpen, setIsSectionsModalOpen] = useState(false)
+  const [isSavePageModalOpen, setIsSavePageModalOpen] = useState(false)
 
   const [slug, setSlug] = useState("")
   const [pageSectionIndex, setPageSectionIndex] = useState(0)
@@ -28,16 +29,17 @@ export default function Admin() {
     []
   )
 
-  const { push } = useRouter()
+  const savePageRef = useRef<HTMLInputElement | null>(null)
+
   const { setPages } = useTemporaryPagesContext()
 
-  const handleOpenModal = (index: number) => {
-    setIsModalOpen(true)
+  const handleOpenSectionsModal = (index: number) => {
+    setIsSectionsModalOpen(true)
     setPageSectionIndex(index)
   }
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
+  const handleCloseSectionsModal = () => {
+    setIsSectionsModalOpen(false)
   }
 
   const addPageSection = (pageSectionData: PageSectionData, index: number) => {
@@ -46,60 +48,66 @@ export default function Admin() {
     )
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSlug(encodeURIComponent(e.target.value))
+  const handleChooseSection = (pageSection: string) => {
+    addPageSection({ pageSection, formData: {} }, pageSectionIndex)
+    handleCloseSectionsModal()
   }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    setPages?.(prevPages => [...prevPages, { slug, pageSectionsData }])
+    const newSlug = encodeURIComponent(savePageRef.current?.value ?? "")
 
-    push(`/lp/${encodeURIComponent(slug)}`)
+    setSlug(newSlug)
+
+    setPages?.(prevPages => [...prevPages, { slug: newSlug, pageSectionsData }])
+
+    setIsSavePageModalOpen(true)
+  }
+
+  const handleCloseSavePageModal = () => {
+    setIsSavePageModalOpen(false)
   }
 
   return (
-    <div className={style.main}>
+    <main className={style.main}>
       <div className={style.editorContainer}>
         <h1 className={style.gridTitle}>Editor</h1>
         <hr className={style.divider} />
 
-        <Link href={`/lp/${slug}`}>Navegar para LP</Link>
-
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="page-slug">Nome da Página</label>
+            <label htmlFor="page-slug">Nome da Página: </label>
 
             <input
               id="page-slug"
               name="page-slug"
               type="text"
               placeholder="Nome da Página"
-              value={slug}
-              onChange={handleChange}
               autoComplete="off"
               required
+              ref={savePageRef}
             />
           </div>
 
           {pageSectionsData.length <= 0 ? (
             <button
               type="button"
-              onClick={() => handleOpenModal(0)}
+              onClick={() => handleOpenSectionsModal(0)}
               className={style.addSectionButton}
             >
-              +
+              <AddCircle />
             </button>
           ) : (
             pageSectionsData.map((pageSectionData, index) => (
-              <div key={index}>
+              <div key={index} className={style.sectionContainer}>
                 {index === 0 && (
                   <button
                     type="button"
-                    onClick={() => handleOpenModal(index)}
+                    onClick={() => handleOpenSectionsModal(index)}
                     className={style.addSectionButton}
                   >
-                    +
+                    <AddCircle />
                   </button>
                 )}
 
@@ -114,10 +122,10 @@ export default function Admin() {
 
                 <button
                   type="button"
-                  onClick={() => handleOpenModal(index + 1)}
+                  onClick={() => handleOpenSectionsModal(index + 1)}
                   className={style.addSectionButton}
                 >
-                  +
+                  <AddCircle />
                 </button>
               </div>
             ))
@@ -126,12 +134,27 @@ export default function Admin() {
           <button type="submit">Salvar Página</button>
         </form>
 
-        {isModalOpen && (
-          <SectionsModal
-            pageSectionIndex={pageSectionIndex}
-            addPageSection={addPageSection}
-            handleCloseModal={handleCloseModal}
-          />
+        {isSectionsModalOpen && (
+          <Modal title="Seções" onClose={handleCloseSectionsModal}>
+            <ul className={style.sectionsContainer}>
+              {pageSections.map(pageSection => (
+                <li key={pageSection}>
+                  <button onClick={() => handleChooseSection(pageSection)}>
+                    {pageSection}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </Modal>
+        )}
+
+        {isSavePageModalOpen && (
+          <Modal title="Página criada" onClose={handleCloseSavePageModal}>
+            <p>
+              Navegar para:{" "}
+              <Link href={`/lp/${encodeURIComponent(slug)}`}>{slug}</Link>
+            </p>
+          </Modal>
         )}
       </div>
 
@@ -153,6 +176,6 @@ export default function Admin() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

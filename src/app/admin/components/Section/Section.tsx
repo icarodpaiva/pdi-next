@@ -40,7 +40,7 @@ export const Section = ({
   const PageSectionForm = sectionForms[pageSectionData.pageSection]
 
   return (
-    <div className={style.sectionContainer}>
+    <div className={style.sectionContent}>
       <div className={style.buttonsContainer}>
         <button
           type="button"
