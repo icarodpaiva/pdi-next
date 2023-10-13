@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-// import style from "./Pages.module.css"
+import style from "./Pages.module.css"
 
 export const Pages = async () => {
   // // To show Loading
@@ -20,10 +20,13 @@ export const Pages = async () => {
     <>
       <h1>Páginas</h1>
 
-      <ul>
+      <ul className={style.pagesContainer}>
         {pages.map(({ slug }) => (
           <li key={slug}>
-            <Link href={`/${slug}`}>{slug}</Link>
+            <p>
+              {slug}: <Link href={`/lp/${slug}`}>Acessar</Link>{" "}
+              <Link href={`/editor/${slug}`}>Editar</Link>
+            </p>
           </li>
         ))}
       </ul>

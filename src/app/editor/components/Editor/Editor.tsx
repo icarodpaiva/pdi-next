@@ -18,6 +18,7 @@ import style from "./Editor.module.css"
 interface EditorProps {
   sections: ISection[]
   setSections: React.Dispatch<React.SetStateAction<ISection[]>>
+  editingPageSlug?: string
 }
 
 type MessageModalContent = {
@@ -25,7 +26,7 @@ type MessageModalContent = {
   message: string
   button?: {
     label: string
-    action: () => void
+    action: () => Promise<void>
   }
 }
 
@@ -34,7 +35,11 @@ const initialMessageModalContent: MessageModalContent = {
   message: ""
 }
 
-export const Editor = ({ sections, setSections }: EditorProps) => {
+export const Editor = ({
+  sections,
+  setSections,
+  editingPageSlug
+}: EditorProps) => {
   const [isSectionsModalOpen, setIsSectionsModalOpen] = useState(false)
 
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false)
@@ -71,52 +76,68 @@ export const Editor = ({ sections, setSections }: EditorProps) => {
     e.preventDefault()
 
     if (sections.length === 0) {
-      return handleOpenMessageModal({
+      handleOpenMessageModal({
         title: "Erro",
         message: "A página deve ter pelo menos uma seção"
       })
+    } else {
+      handleOpenMessageModal({
+        title: "Confirmação",
+        message: "Deseja salvar a página?",
+        button: {
+          label: "Sim",
+          action: editingPageSlug ? handleEditPage : handleCreatePage
+        }
+      })
     }
+  }
 
-    handleOpenMessageModal({
-      title: "Confirmação",
-      message: "Deseja salvar a página?",
-      button: {
-        label: "Sim",
-        action: handleCreatePage
-      }
-    })
+  const handleEditPage = async () => {
+    await createOrEditPage({ isCreating: false })
   }
 
   const handleCreatePage = async () => {
-    const slug = encodeURIComponent(slugRef.current?.value ?? "")
+    await createOrEditPage({ isCreating: true })
+  }
 
-    const response = await fetch("http://localhost:3001/pages/", {
-      method: "POST",
+  const createOrEditPage = async ({ isCreating }: { isCreating: boolean }) => {
+    const slug = slugRef.current?.value ?? ""
+
+    const method = isCreating ? "POST" : "PUT"
+
+    const url = isCreating
+      ? "http://localhost:3001/pages/"
+      : `http://localhost:3001/pages/${editingPageSlug}`
+
+    const body = JSON.stringify({ slug, sections })
+
+    const response = await fetch(url, {
+      method,
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ slug, sections })
+      body
     })
 
-    if (response.status === 201) {
-      return push(`/lp/${slug}`)
+    if (response.status === (isCreating ? 201 : 204)) {
+      push(`/lp/${slug}`)
+    } else {
+      const error: RequestError = await response.json()
+
+      if (error.message.includes("already exists")) {
+        slugRef.current?.focus()
+
+        handleOpenMessageModal({
+          title: "Erro",
+          message: "Já existe uma página com esse nome"
+        })
+      } else {
+        handleOpenMessageModal({
+          title: "Erro",
+          message: `Falha ao ${isCreating ? "criar" : "editar"} a página`
+        })
+      }
     }
-
-    const error: RequestError = await response.json()
-
-    if (error.message.includes("already exists")) {
-      slugRef.current?.focus()
-
-      return handleOpenMessageModal({
-        title: "Erro",
-        message: "Já existe uma página com esse nome"
-      })
-    }
-
-    return handleOpenMessageModal({
-      title: "Erro",
-      message: "Falha ao salvar a página"
-    })
   }
 
   const handleOpenMessageModal = (modalContent: MessageModalContent) => {
@@ -145,6 +166,7 @@ export const Editor = ({ sections, setSections }: EditorProps) => {
             autoComplete="off"
             required
             ref={slugRef}
+            value={editingPageSlug}
           />
         </div>
 

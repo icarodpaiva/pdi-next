@@ -1,2 +1,2 @@
 export * from "./Pages"
-export * from "./Pages.skeleton"
+export * from "./Pages.loading"

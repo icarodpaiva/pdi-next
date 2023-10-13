@@ -43,8 +43,6 @@ export const DynamicForm = <ComponentProps extends object>({
     })
   }
 
-  console.log(formData)
-
   return (
     <Form
       _internalFormWrapper="div"

@@ -1,4 +1,4 @@
-export const PagesSkeleton = () => {
+export const PagesLoading = () => {
   const skeletons = Array.from({ length: 10 }).map((_, index) => (
     <li key={index}>...</li>
   ))

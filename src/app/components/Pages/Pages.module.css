@@ -1,0 +1,8 @@
+.pagesContainer {
+  display: grid;
+  gap: 24px;
+}
+
+.pagesContainer div {
+  display: grid;
+}
