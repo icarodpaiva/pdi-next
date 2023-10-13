@@ -1,17 +1,17 @@
 import { sectionForms } from "../../helpers/sections"
 import { removeArrayItem } from "../../utils/removeArrayItem"
 
-import type { PageSectionData } from "../../page"
+import type { Section as SectionType } from "../../page"
 
 import style from "./Section.module.css"
 
 interface SectionProps {
-  pageSectionData: PageSectionData
+  pageSectionData: SectionType
   index: number
   isUpButtonDisabled: boolean
   isDownButtonDisabled: boolean
-  addPageSection: (pageSectionData: PageSectionData, index: number) => void
-  setPageSectionsData: React.Dispatch<React.SetStateAction<PageSectionData[]>>
+  addPageSection: (pageSectionData: SectionType, index: number) => void
+  setPageSectionsData: React.Dispatch<React.SetStateAction<SectionType[]>>
 }
 
 export const Section = ({
@@ -37,7 +37,7 @@ export const Section = ({
     addPageSection(pageSectionData, index + 1)
   }
 
-  const PageSectionForm = sectionForms[pageSectionData.pageSection]
+  const PageSectionForm = sectionForms[pageSectionData.section]
 
   return (
     <div className={style.sectionContent}>

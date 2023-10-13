@@ -1,7 +1,5 @@
-"use client"
-
-import { useTemporaryPagesContext } from "@/app/contexts/TemporaryPagesContext"
-import { sectionComponents } from "@/app/admin/helpers/sections"
+import { Section } from "@/app/admin/page"
+import { RenderComponents } from "./RenderComponents"
 
 // import styles from "./page.module.css"
 
@@ -11,22 +9,18 @@ interface LandingPageProps {
   }
 }
 
-export default function LandingPage({ params: { slug } }: LandingPageProps) {
-  const { pages } = useTemporaryPagesContext()
+type PageData = { slug: string; sections: Section[] }
+type RequestError = { message: string; error: string; statusCode: number }
 
-  const page = pages?.find(page => page.slug === slug)
+export default async function LandingPage({
+  params: { slug }
+}: LandingPageProps) {
+  const response = await fetch(`http://localhost:3001/pages/${slug}`)
+  const page = await response.json()
 
-  return (
-    <main>
-      {page?.pageSectionsData.map(({ pageSection, formData: props }, index) => {
-        const PageSectionComponent = sectionComponents[pageSection]
+  if (response.status !== 200) {
+    return <div>{(page as RequestError).message}</div>
+  }
 
-        if (PageSectionComponent) {
-          return <PageSectionComponent key={index} {...props} />
-        }
-
-        return null
-      })}
-    </main>
-  )
+  return <RenderComponents sections={(page as PageData).sections} />
 }
