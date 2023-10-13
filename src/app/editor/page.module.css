@@ -3,30 +3,3 @@
   gap: 32px;
   padding: 0 16px;
 }
-
-.editorContainer {
-}
-
-.editorContainer form {
-  display: grid;
-  gap: 16px;
-  border: 2px solid black;
-  border-radius: 16px;
-  padding: 16px;
-}
-
-.sectionContainer {
-  display: grid;
-  gap: 16px;
-}
-
-ul.sectionsContainer {
-  display: grid;
-  gap: 8px;
-}
-
-ul.sectionsContainer button {
-  width: 100%;
-  font-size: 24px;
-  line-height: 30px;
-}

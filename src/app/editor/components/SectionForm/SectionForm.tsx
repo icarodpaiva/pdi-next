@@ -1,7 +1,9 @@
-import { sectionForms } from "../../helpers/sections"
+"use client"
+
+import { sectionForms } from "@/app/helpers/sections"
 import { removeArrayItem } from "../../utils/removeArrayItem"
 
-import type { ISection } from "../../types/Section"
+import type { ISection } from "@/app/types/PagesRequests"
 
 import style from "./SectionForm.module.css"
 

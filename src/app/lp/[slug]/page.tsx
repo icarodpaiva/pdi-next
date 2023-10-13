@@ -1,8 +1,6 @@
-import { RenderComponents } from "./RenderComponents"
+import { RenderSections } from "@/app/helpers/RenderSections"
 
-import type { Section } from "@/app/page"
-
-// import styles from "./page.module.css"
+import type { PageData, RequestError } from "@/app/types/PagesRequests"
 
 interface LandingPageProps {
   params: {
@@ -10,12 +8,11 @@ interface LandingPageProps {
   }
 }
 
-type PageData = { slug: string; sections: Section[] }
-type RequestError = { message: string; error: string; statusCode: number }
-
 export default async function LandingPage({
   params: { slug }
 }: LandingPageProps) {
+  console.log("slug", slug)
+
   const response = await fetch(`http://localhost:3001/pages/${slug}`)
   const page = await response.json()
 
@@ -23,5 +20,5 @@ export default async function LandingPage({
     return <div>{(page as RequestError).message}</div>
   }
 
-  return <RenderComponents sections={(page as PageData).sections} />
+  return <RenderSections sections={(page as PageData).sections} />
 }

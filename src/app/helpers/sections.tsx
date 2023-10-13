@@ -1,6 +1,6 @@
-import { DynamicForm } from "../components/DynamicForm"
+import { DynamicForm } from "../editor/components/DynamicForm"
 
-import * as sections from "../sections"
+import * as sections from "@/app/sections"
 
 type Sections = { [key: string]: (props: any) => React.ReactNode }
 

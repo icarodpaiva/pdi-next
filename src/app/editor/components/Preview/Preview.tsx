@@ -1,6 +1,8 @@
-import { RenderSections } from "../../helpers/RenderSections"
+"use client"
 
-import type { RenderSectionsProps } from "../../helpers/RenderSections"
+import { RenderSections } from "@/app/helpers/RenderSections"
+
+import type { RenderSectionsProps } from "@/app/helpers/RenderSections"
 
 import style from "./Preview.module.css"
 

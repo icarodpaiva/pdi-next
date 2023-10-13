@@ -1,9 +1,9 @@
 import { sectionComponents } from "./sections"
 
-import { Section } from "../types/Section"
+import { ISection } from "@/app/types/PagesRequests"
 
 export interface RenderSectionsProps {
-  sections: Section[]
+  sections: ISection[]
 }
 
 export const RenderSections = ({ sections }: RenderSectionsProps) => {

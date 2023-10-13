@@ -1,7 +1,7 @@
 import { AddSectionButton } from "../AddSectionButton/AddSectionButton"
 import { SectionForm } from "../SectionForm"
 
-import type { ISection } from "../../types/Section"
+import type { ISection } from "@/app/types/PagesRequests"
 
 import style from "./Section.module.css"
 

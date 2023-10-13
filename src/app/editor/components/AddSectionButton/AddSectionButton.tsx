@@ -1,3 +1,5 @@
+"use client"
+
 import { AddCircle } from "@mui/icons-material"
 
 import style from "./AddSectionButton.module.css"

@@ -1,10 +1,10 @@
+import { RequestError } from "@/app/types/PagesRequests"
+
 interface LandingPageProps {
   params: {
     slug: string
   }
 }
-
-type RequestError = { message: string; error: string; statusCode: number }
 
 export default async function PageEditor({
   params: { slug }

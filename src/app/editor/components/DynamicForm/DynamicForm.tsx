@@ -1,3 +1,5 @@
+"use client"
+
 import { withTheme } from "@rjsf/core"
 import { Theme } from "@rjsf/mui"
 
@@ -7,7 +9,7 @@ import { customizeValidator } from "@rjsf/validator-ajv8"
 
 import type { IChangeEvent } from "@rjsf/core"
 import type { JSONSchemaType } from "ajv"
-import type { ISection } from "../../types/Section"
+import type { ISection } from "@/app/types/PagesRequests"
 
 interface DynamicFormProps<ComponentProps> {
   schema: JSONSchemaType<ComponentProps>
