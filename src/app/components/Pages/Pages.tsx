@@ -1,5 +1,7 @@
 import Link from "next/link"
 
+import { DeletePageButton } from "../DeletePageButton"
+
 import style from "./Pages.module.css"
 
 export const Pages = async () => {
@@ -27,9 +29,10 @@ export const Pages = async () => {
               Página: <strong>{slug}</strong>
             </p>
 
-            <div>
+            <div className={style.buttonsContainer}>
               <Link href={`/lp/${slug}`}>Acessar</Link>
               <Link href={`/editor/${slug}`}>Editar</Link>
+              <DeletePageButton slug={slug} />
             </div>
           </li>
         ))}

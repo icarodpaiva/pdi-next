@@ -6,8 +6,10 @@ import { useRouter } from "next/navigation"
 import { AddSectionButton } from "../AddSectionButton"
 import { Modal } from "../Modal"
 import { Section } from "../Section"
+import { MessageModal } from "@/app/components/MessageModal"
 
 import { pageSections } from "@/app/helpers/sections"
+import { useMessagesModal } from "@/app/hooks/useMessagesModal"
 import { addArrayItem } from "../../utils/addArrayItem"
 
 import type { ISection } from "@/app/types/PagesRequests"
@@ -21,36 +23,18 @@ interface EditorProps {
   editingPageSlug?: string
 }
 
-type MessageModalContent = {
-  title: string
-  message: string
-  button?: {
-    label: string
-    action: () => Promise<void>
-  }
-}
-
-const initialMessageModalContent: MessageModalContent = {
-  title: "",
-  message: ""
-}
-
 export const Editor = ({
   sections,
   setSections,
   editingPageSlug
 }: EditorProps) => {
   const [isSectionsModalOpen, setIsSectionsModalOpen] = useState(false)
-
-  const [isMessageModalOpen, setIsMessageModalOpen] = useState(false)
-  const [messageModalContent, setMessageModalContent] =
-    useState<MessageModalContent>(initialMessageModalContent)
-
   const [pageSectionIndex, setPageSectionIndex] = useState(0)
 
   const slugRef = useRef<HTMLInputElement | null>(null)
 
   const { push } = useRouter()
+  const { handleOpenMessageModal, ...modalProps } = useMessagesModal()
 
   const handleOpenSectionsModal = (index: number) => {
     setIsSectionsModalOpen(true)
@@ -120,7 +104,9 @@ export const Editor = ({
     })
 
     if (response.status === (isCreating ? 201 : 204)) {
-      push(`/lp/${slug}`)
+      setTimeout(() => {
+        push(`/lp/${slug}`)
+      }, 1000)
     } else {
       const error: RequestError = await response.json()
 
@@ -138,15 +124,6 @@ export const Editor = ({
         })
       }
     }
-  }
-
-  const handleOpenMessageModal = (modalContent: MessageModalContent) => {
-    setMessageModalContent(modalContent)
-    setIsMessageModalOpen(true)
-  }
-
-  const handleCloseMessageModal = () => {
-    setIsMessageModalOpen(false)
   }
 
   return (
@@ -208,20 +185,7 @@ export const Editor = ({
         </Modal>
       )}
 
-      {isMessageModalOpen && (
-        <Modal
-          title={messageModalContent.title}
-          onClose={handleCloseMessageModal}
-        >
-          <p>{messageModalContent.message}</p>
-
-          {messageModalContent.button && (
-            <button onClick={messageModalContent.button.action}>
-              {messageModalContent.button.label}
-            </button>
-          )}
-        </Modal>
-      )}
+      <MessageModal {...modalProps} />
     </div>
   )
 }

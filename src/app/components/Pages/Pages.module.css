@@ -14,7 +14,7 @@
   font-size: 20px;
 }
 
-.pageContainer div {
+.buttonsContainer {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
@@ -22,9 +22,10 @@
   margin-top: 16px;
 }
 
-.pagesContainer a {
+.buttonsContainer a {
   border-radius: 8px;
   padding: 16px;
   background-color: #fff;
   text-align: center;
+  text-decoration: none;
 }
