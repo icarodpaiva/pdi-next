@@ -3,6 +3,28 @@
   gap: 24px;
 }
 
-.pagesContainer div {
+.pageContainer {
   display: grid;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #e8e8e8;
+}
+
+.pageContainer strong {
+  font-size: 20px;
+}
+
+.pageContainer div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  width: fit-content;
+  margin-top: 16px;
+}
+
+.pagesContainer a {
+  border-radius: 8px;
+  padding: 16px;
+  background-color: #fff;
+  text-align: center;
 }

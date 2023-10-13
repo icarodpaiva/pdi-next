@@ -166,7 +166,7 @@ export const Editor = ({
             autoComplete="off"
             required
             ref={slugRef}
-            value={editingPageSlug}
+            defaultValue={editingPageSlug}
           />
         </div>
 

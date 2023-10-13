@@ -14,7 +14,9 @@ export default async function LandingPage({
   // // To show Loading
   // await new Promise(resolve => setTimeout(resolve, 3000))
 
-  const response = await fetch(`http://localhost:3001/pages/${slug}`)
+  const response = await fetch(`http://localhost:3001/pages/${slug}`, {
+    cache: "no-store"
+  })
 
   if (response.status !== 200) {
     return (

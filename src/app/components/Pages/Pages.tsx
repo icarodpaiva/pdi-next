@@ -22,11 +22,15 @@ export const Pages = async () => {
 
       <ul className={style.pagesContainer}>
         {pages.map(({ slug }) => (
-          <li key={slug}>
+          <li key={slug} className={style.pageContainer}>
             <p>
-              {slug}: <Link href={`/lp/${slug}`}>Acessar</Link>{" "}
-              <Link href={`/editor/${slug}`}>Editar</Link>
+              Página: <strong>{slug}</strong>
             </p>
+
+            <div>
+              <Link href={`/lp/${slug}`}>Acessar</Link>
+              <Link href={`/editor/${slug}`}>Editar</Link>
+            </div>
           </li>
         ))}
       </ul>
