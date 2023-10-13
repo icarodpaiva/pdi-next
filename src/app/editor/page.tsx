@@ -1,15 +1,16 @@
 "use client"
 
 import { useState, useRef } from "react"
-import { AddCircle } from "@mui/icons-material"
 
 import { useRouter } from "next/navigation"
 
-import { Section } from "./components/Section"
-import { Modal } from "./components/Modal"
+import { Modal } from "./[slug]/components/Modal"
+import { Preview } from "./[slug]/components/Preview/Preview"
+import { AddSectionButton } from "./[slug]/components/AddSectionButton/AddSectionButton"
+import { Section } from "./[slug]/components/Section/Section"
 
-import { pageSections, sectionComponents } from "./helpers/sections"
-import { addArrayItem } from "./utils/addArrayItem"
+import { pageSections } from "./[slug]/helpers/sections"
+import { addArrayItem } from "./[slug]/utils/addArrayItem"
 
 import style from "./page.module.css"
 
@@ -27,12 +28,12 @@ const initialMessageModalContent: MessageModalContent = {
   message: ""
 }
 
-export interface Section {
+export interface ISection {
   section: string
   formData: object
 }
 
-export default function Admin() {
+export default function Editor() {
   const [isSectionsModalOpen, setIsSectionsModalOpen] = useState(false)
 
   const [isMessageModalOpen, setIsMessageModalOpen] = useState(false)
@@ -40,7 +41,7 @@ export default function Admin() {
     useState<MessageModalContent>(initialMessageModalContent)
 
   const [pageSectionIndex, setPageSectionIndex] = useState(0)
-  const [sections, setSections] = useState<Section[]>([])
+  const [sections, setSections] = useState<ISection[]>([])
 
   const slugRef = useRef<HTMLInputElement | null>(null)
 
@@ -55,7 +56,7 @@ export default function Admin() {
     setIsSectionsModalOpen(false)
   }
 
-  const addPageSection = (pageSectionData: Section, index: number) => {
+  const addPageSection = (pageSectionData: ISection, index: number) => {
     setSections(prevPageSectionsData =>
       addArrayItem(prevPageSectionsData, index, pageSectionData)
     )
@@ -68,15 +69,6 @@ export default function Admin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    const slug = encodeURIComponent(slugRef.current?.value ?? "")
-
-    if (!slug) {
-      return handleOpenMessageModal({
-        title: "Erro",
-        message: "Nome da página não pode ser vazio"
-      })
-    }
 
     if (sections.length === 0) {
       return handleOpenMessageModal({
@@ -96,29 +88,35 @@ export default function Admin() {
   }
 
   const handleSavePage = async () => {
-    // refatorar o try catch usando fetch
-    try {
-      const slug = encodeURIComponent(slugRef.current?.value ?? "")
+    const slug = encodeURIComponent(slugRef.current?.value ?? "")
 
-      await fetch("http://localhost:3001/pages/", {
-        method: "POST",
-        body: JSON.stringify({ slug, sections })
-      })
+    const response = await fetch("http://localhost:3001/pages/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ slug, sections })
+    })
 
+    if (response.status === 201) {
       return push(`/lp/${slug}`)
-    } catch (error: any) {
-      if (error.response?.message?.includes("already exists")) {
-        return handleOpenMessageModal({
-          title: "Erro",
-          message: "Já existe uma página com esse nome"
-        })
-      }
+    }
+
+    const error: PagesRequestError = await response.json()
+
+    if (error.message.includes("already exists")) {
+      slugRef.current?.focus()
 
       return handleOpenMessageModal({
         title: "Erro",
-        message: "Falha ao salvar a página"
+        message: "Já existe uma página com esse nome"
       })
     }
+
+    return handleOpenMessageModal({
+      title: "Erro",
+      message: "Falha ao salvar a página"
+    })
   }
 
   const handleOpenMessageModal = (modalContent: MessageModalContent) => {
@@ -134,7 +132,7 @@ export default function Admin() {
     <main className={style.main}>
       <div className={style.editorContainer}>
         <h1 className={style.gridTitle}>Editor</h1>
-        <hr className={style.divider} />
+        <hr />
 
         <form onSubmit={handleSubmit}>
           <div>
@@ -151,45 +149,25 @@ export default function Admin() {
             />
           </div>
 
-          {sections.length <= 0 ? (
-            <button
-              type="button"
-              onClick={() => handleOpenSectionsModal(0)}
-              className={style.addSectionButton}
-            >
-              <AddCircle />
-            </button>
+          {sections.length === 0 ? (
+            <AddSectionButton
+              handleOpenSectionsModal={handleOpenSectionsModal}
+              sectionIndex={0}
+            />
           ) : (
-            sections.map((section, index) => (
-              <div key={index} className={style.sectionContainer}>
-                {index === 0 && (
-                  <button
-                    type="button"
-                    onClick={() => handleOpenSectionsModal(index)}
-                    className={style.addSectionButton}
-                  >
-                    <AddCircle />
-                  </button>
-                )}
-
+            <>
+              {sections.map((section, index) => (
                 <Section
-                  pageSectionData={section}
+                  key={index}
+                  handleOpenSectionsModal={handleOpenSectionsModal}
                   index={index}
-                  isUpButtonDisabled={index === 0}
-                  isDownButtonDisabled={index === sections.length - 1}
+                  section={section}
+                  sectionsLength={sections.length}
                   addPageSection={addPageSection}
-                  setPageSectionsData={setSections}
+                  setSections={setSections}
                 />
-
-                <button
-                  type="button"
-                  onClick={() => handleOpenSectionsModal(index + 1)}
-                  className={style.addSectionButton}
-                >
-                  <AddCircle />
-                </button>
-              </div>
-            ))
+              ))}
+            </>
           )}
 
           <button type="submit">Salvar Página</button>
@@ -225,24 +203,7 @@ export default function Admin() {
         )}
       </div>
 
-      <div className={style.previewContainer}>
-        <div className={style.previewContent}>
-          <h1 className={style.gridTitle}>Pré-visualização</h1>
-          <hr className={style.divider} />
-
-          <div className={style.sectionsContainer}>
-            {sections.map(({ section, formData: props }, index) => {
-              const PageSectionComponent = sectionComponents[section]
-
-              if (PageSectionComponent) {
-                return <PageSectionComponent key={index} {...props} />
-              }
-
-              return null
-            })}
-          </div>
-        </div>
-      </div>
+      <Preview sections={sections} />
     </main>
   )
 }

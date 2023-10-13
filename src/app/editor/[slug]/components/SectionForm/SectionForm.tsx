@@ -1,43 +1,43 @@
 import { sectionForms } from "../../helpers/sections"
 import { removeArrayItem } from "../../utils/removeArrayItem"
 
-import type { Section as SectionType } from "../../page"
+import type { ISection } from "../../types/Section"
 
-import style from "./Section.module.css"
+import style from "./SectionForm.module.css"
 
-interface SectionProps {
-  pageSectionData: SectionType
+interface SectionFormProps {
+  section: ISection
   index: number
   isUpButtonDisabled: boolean
   isDownButtonDisabled: boolean
-  addPageSection: (pageSectionData: SectionType, index: number) => void
-  setPageSectionsData: React.Dispatch<React.SetStateAction<SectionType[]>>
+  addPageSection: (section: ISection, index: number) => void
+  setSections: React.Dispatch<React.SetStateAction<ISection[]>>
 }
 
-export const Section = ({
-  pageSectionData,
+export const SectionForm = ({
+  section,
   index,
   isUpButtonDisabled,
   isDownButtonDisabled,
   addPageSection,
-  setPageSectionsData
-}: SectionProps) => {
+  setSections
+}: SectionFormProps) => {
   const handleRemovePageSection = () => {
-    setPageSectionsData(prevPageSectionsData =>
+    setSections(prevPageSectionsData =>
       removeArrayItem(prevPageSectionsData, index)
     )
   }
 
   const handleMovePageSection = (moveTo: "up" | "down") => {
     handleRemovePageSection()
-    addPageSection(pageSectionData, moveTo === "up" ? index - 1 : index + 1)
+    addPageSection(section, moveTo === "up" ? index - 1 : index + 1)
   }
 
   const handleDuplicatePageSection = () => {
-    addPageSection(pageSectionData, index + 1)
+    addPageSection(section, index + 1)
   }
 
-  const PageSectionForm = sectionForms[pageSectionData.section]
+  const PageSectionForm = sectionForms[section.section]
 
   return (
     <div className={style.sectionContent}>
@@ -72,8 +72,8 @@ export const Section = ({
       {PageSectionForm && (
         <PageSectionForm
           index={index}
-          pageSectionData={pageSectionData}
-          setPageSectionsData={setPageSectionsData}
+          section={section}
+          setSections={setSections}
         />
       )}
     </div>

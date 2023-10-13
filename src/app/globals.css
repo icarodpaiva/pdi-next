@@ -31,6 +31,7 @@ footer {
 main {
   flex: 1;
   display: grid;
+  align-content: flex-start;
   gap: 24px;
   width: 100%;
   max-width: 1280px;
@@ -84,4 +85,10 @@ button:disabled {
 
 button:disabled:hover {
   opacity: unset;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #e8e8e8;
+  margin-bottom: 32px;
 }

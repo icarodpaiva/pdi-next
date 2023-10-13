@@ -1,0 +1,6 @@
+.addSectionButton {
+  max-width: fit-content;
+  justify-self: center;
+  background: blue;
+  color: white;
+}

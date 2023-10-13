@@ -1,8 +1,4 @@
-export const addArrayItem = <Item>(
-  array: Item[],
-  index: number,
-  item: Item
-) => {
+export const addArrayItem = <T>(array: T[], index: number, item: T) => {
   const updatedArray = [...array]
 
   updatedArray.splice(index, 0, item)

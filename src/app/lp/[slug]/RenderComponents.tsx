@@ -1,8 +1,8 @@
 "use client"
 
-import { sectionComponents } from "@/app/admin/helpers/sections"
+import { RenderSections } from "@/app/editor/[slug]/helpers/RenderSections"
 
-import type { Section } from "@/app/admin/page"
+import type { Section } from "@/app/editor/page"
 
 interface RenderComponentsProps {
   sections: Section[]
@@ -11,13 +11,7 @@ interface RenderComponentsProps {
 export const RenderComponents = ({ sections }: RenderComponentsProps) => {
   return (
     <main>
-      {sections.map(({ section, formData: props }, index) => {
-        const PageSectionComponent = sectionComponents[section]
-        if (PageSectionComponent) {
-          return <PageSectionComponent key={index} {...props} />
-        }
-        return null
-      })}
+      <RenderSections sections={sections} />
     </main>
   )
 }

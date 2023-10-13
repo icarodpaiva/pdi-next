@@ -1,0 +1,14 @@
+.previewContainer {
+  position: relative;
+}
+
+.previewContent {
+  position: sticky;
+  top: 16px;
+  padding: 0 16px;
+}
+
+.sectionsContainer {
+  display: grid;
+  gap: 24px;
+}

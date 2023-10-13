@@ -7,20 +7,20 @@ import { customizeValidator } from "@rjsf/validator-ajv8"
 
 import type { IChangeEvent } from "@rjsf/core"
 import type { JSONSchemaType } from "ajv"
-import type { Section } from "../../page"
+import type { ISection } from "../../types/Section"
 
 interface DynamicFormProps<ComponentProps> {
   schema: JSONSchemaType<ComponentProps>
   index: number
-  pageSectionData: Section
-  setPageSectionsData: React.Dispatch<React.SetStateAction<Section[]>>
+  section: ISection
+  setSections: React.Dispatch<React.SetStateAction<ISection[]>>
 }
 
 export const DynamicForm = <ComponentProps extends object>({
   schema,
   index,
-  pageSectionData: { section, formData },
-  setPageSectionsData
+  section: { section, formData },
+  setSections
 }: DynamicFormProps<ComponentProps>) => {
   type Schema = JSONSchemaType<ComponentProps>
 
@@ -29,7 +29,7 @@ export const DynamicForm = <ComponentProps extends object>({
   const handleChange = (
     data: IChangeEvent<any, JSONSchemaType<ComponentProps>, any>
   ) => {
-    setPageSectionsData((prevPageSectionsData: Section[]) => {
+    setSections((prevPageSectionsData: ISection[]) => {
       const updatedPageSectionsData = [...prevPageSectionsData]
 
       updatedPageSectionsData[index] = {

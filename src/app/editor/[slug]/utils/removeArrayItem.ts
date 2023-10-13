@@ -1,4 +1,4 @@
-export const removeArrayItem = <Item>(array: Item[], index: number) => {
+export const removeArrayItem = <T>(array: T[], index: number) => {
   const updatedArray = [...array]
 
   updatedArray.splice(index, 1)
