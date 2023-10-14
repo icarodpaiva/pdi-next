@@ -1,11 +1,13 @@
 .previewContainer {
-  position: relative;
+  position: sticky;
+  top: 16px;
+  overflow-y: scroll;
+  max-height: 600px;
+  padding-bottom: 24px;
 }
 
 .previewContent {
-  position: sticky;
-  top: 16px;
-  padding: 0 16px;
+  padding-right: 16px;
 }
 
 .sectionsContainer {
