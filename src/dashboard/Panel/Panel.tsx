@@ -1,0 +1,31 @@
+"use client"
+
+import { useState } from "react"
+
+import { Editor } from "../Editor"
+import { Preview } from "../Preview"
+
+import type { PageData, Component } from "../../types/PagesRequests"
+
+import style from "./Panel.module.css"
+
+interface PanelProps {
+  initialData?: PageData
+}
+
+export const Panel = ({ initialData }: PanelProps) => {
+  const [sections, setSections] = useState<Component[]>(
+    initialData?.sections ?? []
+  )
+
+  return (
+    <div className={style.panelContainer}>
+      <Editor
+        sections={sections}
+        setSections={setSections}
+        editingPageSlug={initialData?.slug}
+      />
+      <Preview pageComponents={sections} />
+    </div>
+  )
+}
