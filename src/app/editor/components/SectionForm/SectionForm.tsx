@@ -1,6 +1,6 @@
 "use client"
 
-import { sectionForms } from "@/app/helpers/sections"
+import { forms } from "@/app/helpers/sectionsData"
 import { removeArrayItem } from "../../utils/removeArrayItem"
 
 import type { ISection } from "@/app/types/PagesRequests"
@@ -39,7 +39,7 @@ export const SectionForm = ({
     addPageSection(section, index + 1)
   }
 
-  const PageSectionForm = sectionForms[section.section]
+  const PageSectionForm = forms[section.section]
 
   return (
     <div className={style.sectionContent}>

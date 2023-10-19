@@ -8,7 +8,7 @@ import { Modal } from "../Modal"
 import { Section } from "../Section"
 import { MessageModal } from "@/app/components/MessageModal"
 
-import { pageSections } from "@/app/helpers/sections"
+import { sectionsNames } from "@/app/helpers/sectionsData"
 import { useMessagesModal } from "@/app/hooks/useMessagesModal"
 import { addArrayItem } from "../../utils/addArrayItem"
 
@@ -174,10 +174,10 @@ export const Editor = ({
       {isSectionsModalOpen && (
         <Modal title="Seções" onClose={handleCloseSectionsModal}>
           <ul className={style.sectionsContainer}>
-            {pageSections.map(pageSection => (
-              <li key={pageSection}>
-                <button onClick={() => handleChooseSection(pageSection)}>
-                  {pageSection}
+            {sectionsNames.map(sectionsName => (
+              <li key={sectionsName}>
+                <button onClick={() => handleChooseSection(sectionsName)}>
+                  {sectionsName}
                 </button>
               </li>
             ))}
