@@ -1,16 +1,14 @@
-import { RenderSections } from "@/app/helpers/RenderSections"
+import { RenderComponents } from "@/helpers/RenderComponents"
 
-import type { PageData } from "@/app/types/PagesRequests"
+import type { PageData } from "@/types/PagesRequests"
 
-interface LandingPageProps {
+interface PageProps {
   params: {
     slug: string
   }
 }
 
-export default async function LandingPage({
-  params: { slug }
-}: LandingPageProps) {
+export default async function Page({ params: { slug } }: PageProps) {
   // // To show Loading
   // await new Promise(resolve => setTimeout(resolve, 3000))
 
@@ -18,19 +16,19 @@ export default async function LandingPage({
     cache: "no-store"
   })
 
-  if (response.status !== 200) {
+  if (response.status === 200) {
+    const { sections }: PageData = await response.json()
+
     return (
       <main>
-        <h1>Página não encontrada</h1>
+        <RenderComponents pageComponents={sections} />
       </main>
     )
   }
 
-  const { sections }: PageData = await response.json()
-
   return (
     <main>
-      <RenderSections sections={sections} />
+      <h1>Página não encontrada</h1>
     </main>
   )
 }

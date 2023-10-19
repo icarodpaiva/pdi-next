@@ -1,6 +1,6 @@
-import { Panel } from "../components/Panel"
+import { Dashboard } from "@/dashboard/Dashboard"
 
-import type { PageData } from "@/app/types/PagesRequests"
+import type { PageData } from "@/types/PagesRequests"
 
 interface EditPageProps {
   params: {
@@ -9,26 +9,26 @@ interface EditPageProps {
 }
 
 export default async function EditPage({ params: { slug } }: EditPageProps) {
-  // To show Loading
-  await new Promise(resolve => setTimeout(resolve, 3000))
+  // // To show Loading
+  // await new Promise(resolve => setTimeout(resolve, 3000))
 
   const response = await fetch(`http://localhost:3001/pages/${slug}`, {
     cache: "no-store"
   })
 
-  if (response.status !== 200) {
+  if (response.status === 200) {
+    const page: PageData = await response.json()
+
     return (
       <main>
-        <h1>Página não encontrada</h1>
+        <Dashboard initialData={page} />
       </main>
     )
   }
 
-  const page: PageData = await response.json()
-
   return (
     <main>
-      <Panel initialData={page} />
+      <h1>Página não encontrada</h1>
     </main>
   )
 }

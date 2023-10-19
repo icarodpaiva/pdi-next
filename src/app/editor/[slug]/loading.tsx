@@ -1,14 +1,18 @@
+import { arrayByNumber } from "@/utils/arrayByNumber"
+
 export default function Loading() {
-  const skeletons = Array.from({ length: 4 }).map((_, index) => (
-    <li
-      key={index}
-      style={{ height: 200, background: "#e8e8e8", marginBottom: 16 }}
-    />
-  ))
+  const skeletons = arrayByNumber(4)
 
   return (
     <main>
-      <ul>{skeletons}</ul>
+      <ul>
+        {skeletons.map(skeleton => (
+          <li
+            key={skeleton}
+            style={{ height: 200, background: "#e8e8e8", marginBottom: 16 }}
+          />
+        ))}
+      </ul>
     </main>
   )
 }

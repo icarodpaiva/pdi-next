@@ -1,9 +1,9 @@
-import { Panel } from "./components/Panel"
+import { Dashboard } from "@/dashboard/Dashboard"
 
 export default function CreatePage() {
   return (
     <main>
-      <Panel />
+      <Dashboard />
     </main>
   )
 }

@@ -1,13 +1,17 @@
-export const PagesLoading = () => {
-  const skeletons = Array.from({ length: 10 }).map((_, index) => (
-    <li key={index}>...</li>
-  ))
+import { arrayByNumber } from "@/utils/arrayByNumber"
+
+export const AllPagesLoading = () => {
+  const skeletons = arrayByNumber(10)
 
   return (
     <>
       <h1>Carregando páginas...</h1>
 
-      <ul>{skeletons}</ul>
+      <ul>
+        {skeletons.map(skeleton => (
+          <li key={skeleton}>...</li>
+        ))}
+      </ul>
     </>
   )
 }

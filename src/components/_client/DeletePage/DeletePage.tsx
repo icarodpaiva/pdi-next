@@ -6,7 +6,7 @@ import { MessageModal } from "../MessageModal"
 
 import { useMessagesModal } from "../../../hooks/useMessagesModal"
 
-import style from "./DeletePageButton.module.css"
+import style from "./DeletePage.module.css"
 
 interface DeletePage {
   slug: string

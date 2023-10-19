@@ -2,18 +2,18 @@
 
 import { useState } from "react"
 
-import { Editor } from "../Editor"
-import { Preview } from "../Preview"
+import { Editor } from "./Editor"
+import { Preview } from "./Preview"
 
-import type { PageData, Component } from "../../types/PagesRequests"
+import type { PageData, Component } from "../types/PagesRequests"
 
-import style from "./Panel.module.css"
+import style from "./Dashboard.module.css"
 
 interface PanelProps {
   initialData?: PageData
 }
 
-export const Panel = ({ initialData }: PanelProps) => {
+export const Dashboard = ({ initialData }: PanelProps) => {
   const [sections, setSections] = useState<Component[]>(
     initialData?.sections ?? []
   )
