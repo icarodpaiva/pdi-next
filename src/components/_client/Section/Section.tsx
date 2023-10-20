@@ -10,7 +10,7 @@ interface SectionProps {
   section: Component
   sectionsLength: number
   handleOpenSectionsModal: (index: number) => void
-  addPageSection: (section: Component, index: number) => void
+  addSection: (section: Component, index: number) => void
   setSections: React.Dispatch<React.SetStateAction<Component[]>>
 }
 
@@ -19,7 +19,7 @@ export const Section = ({
   section,
   sectionsLength,
   handleOpenSectionsModal,
-  addPageSection,
+  addSection,
   setSections
 }: SectionProps) => {
   return (
@@ -36,7 +36,7 @@ export const Section = ({
         section={section}
         isUpButtonDisabled={index === 0}
         isDownButtonDisabled={index === sectionsLength - 1}
-        addPageSection={addPageSection}
+        addSection={addSection}
         setSections={setSections}
       />
 

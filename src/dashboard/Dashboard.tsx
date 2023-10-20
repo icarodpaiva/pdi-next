@@ -9,17 +9,17 @@ import type { PageData, Component } from "@/types/PagesRequests"
 
 import style from "./Dashboard.module.css"
 
-interface PanelProps {
+interface DashboardProps {
   initialData?: PageData
 }
 
-export const Dashboard = ({ initialData }: PanelProps) => {
+export const Dashboard = ({ initialData }: DashboardProps) => {
   const [sections, setSections] = useState<Component[]>(
     initialData?.sections ?? []
   )
 
   return (
-    <div className={style.panelContainer}>
+    <div className={style.dashboardContainer}>
       <Editor
         sections={sections}
         setSections={setSections}

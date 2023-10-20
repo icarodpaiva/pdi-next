@@ -12,7 +12,7 @@ interface SectionFormProps {
   index: number
   isUpButtonDisabled: boolean
   isDownButtonDisabled: boolean
-  addPageSection: (section: Component, index: number) => void
+  addSection: (section: Component, index: number) => void
   setSections: React.Dispatch<React.SetStateAction<Component[]>>
 }
 
@@ -21,22 +21,20 @@ export const SectionForm = ({
   index,
   isUpButtonDisabled,
   isDownButtonDisabled,
-  addPageSection,
+  addSection,
   setSections
 }: SectionFormProps) => {
   const handleRemovePageSection = () => {
-    setSections(prevPageSectionsData =>
-      removeArrayItem(prevPageSectionsData, index)
-    )
+    setSections(prevPageSections => removeArrayItem(prevPageSections, index))
   }
 
   const handleMovePageSection = (moveTo: "up" | "down") => {
     handleRemovePageSection()
-    addPageSection(section, moveTo === "up" ? index - 1 : index + 1)
+    addSection(section, moveTo === "up" ? index - 1 : index + 1)
   }
 
   const handleDuplicatePageSection = () => {
-    addPageSection(section, index + 1)
+    addSection(section, index + 1)
   }
 
   const Form = forms[section.section]

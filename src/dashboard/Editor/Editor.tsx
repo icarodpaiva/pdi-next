@@ -45,14 +45,14 @@ export const Editor = ({
     setIsSectionsModalOpen(false)
   }
 
-  const addPageSection = (pageSectionData: Component, index: number) => {
-    setSections(prevPageSectionsData =>
-      addArrayItem(prevPageSectionsData, index, pageSectionData)
+  const addSection = (pageSection: Component, index: number) => {
+    setSections(prevPageSections =>
+      addArrayItem(prevPageSections, index, pageSection)
     )
   }
 
   const handleChooseSection = (section: string) => {
-    addPageSection({ section, formData: {} }, pageSectionIndex)
+    addSection({ section, formData: {} }, pageSectionIndex)
     handleCloseSectionsModal()
   }
 
@@ -161,7 +161,7 @@ export const Editor = ({
                 section={section}
                 sectionsLength={sections.length}
                 handleOpenSectionsModal={handleOpenSectionsModal}
-                addPageSection={addPageSection}
+                addSection={addSection}
                 setSections={setSections}
               />
             ))}
