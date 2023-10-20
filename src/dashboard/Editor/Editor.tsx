@@ -105,7 +105,7 @@ export const Editor = ({
 
     if (response.status === (isCreating ? 201 : 204)) {
       setTimeout(() => {
-        push(`/lp/${slug}`)
+        push(`/page/${slug}`)
       }, 1000)
     } else {
       const error: RequestError = await response.json()

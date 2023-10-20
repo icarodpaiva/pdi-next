@@ -27,7 +27,7 @@ export const AllPages = async () => {
               </p>
 
               <div className={style.buttonsContainer}>
-                <Link href={`/lp/${slug}`}>Acessar</Link>
+                <Link href={`/page/${slug}`}>Acessar</Link>
                 <Link href={`/editor/${slug}`}>Editar</Link>
                 <DeletePage slug={slug}>Deletar</DeletePage>
               </div>
