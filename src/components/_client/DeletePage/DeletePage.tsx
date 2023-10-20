@@ -30,18 +30,26 @@ export const DeletePage = ({
     })
   }
 
-  const handleDeletePage = async () => {
-    const response = await fetch(`http://localhost:3001/pages/${slug}`, {
-      method: "DELETE"
+  const handleDeletePageError = () => {
+    handleOpenMessageModal({
+      title: "Erro",
+      message: "Erro ao deletar página"
     })
+  }
 
-    if (response.status === 204) {
-      refresh()
-    } else {
-      handleOpenMessageModal({
-        title: "Erro",
-        message: "Erro ao deletar página"
+  const handleDeletePage = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/pages/${slug}`, {
+        method: "DELETE"
       })
+
+      if (response.status === 204) {
+        refresh()
+      } else {
+        handleDeletePageError()
+      }
+    } catch {
+      handleDeletePageError()
     }
   }
 

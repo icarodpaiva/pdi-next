@@ -9,26 +9,30 @@ interface EditPageProps {
 }
 
 export default async function EditPage({ params: { slug } }: EditPageProps) {
-  // // To show Loading
-  // await new Promise(resolve => setTimeout(resolve, 3000))
+  try {
+    // // To show Loading
+    // await new Promise(resolve => setTimeout(resolve, 3000))
 
-  const response = await fetch(`http://localhost:3001/pages/${slug}`, {
-    cache: "no-store"
-  })
+    const response = await fetch(`http://localhost:3001/pages/${slug}`, {
+      cache: "no-store"
+    })
 
-  if (response.status === 200) {
-    const page: PageData = await response.json()
+    if (response.status === 200) {
+      const page: PageData = await response.json()
+
+      return (
+        <main>
+          <Dashboard initialData={page} />
+        </main>
+      )
+    }
 
     return (
       <main>
-        <Dashboard initialData={page} />
+        <h1>Página não encontrada</h1>
       </main>
     )
+  } catch {
+    return <h1>Erro ao carregar página</h1>
   }
-
-  return (
-    <main>
-      <h1>Página não encontrada</h1>
-    </main>
-  )
 }

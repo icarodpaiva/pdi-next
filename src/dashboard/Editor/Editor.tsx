@@ -85,44 +85,49 @@ export const Editor = ({
   }
 
   const createOrEditPage = async ({ isCreating }: { isCreating: boolean }) => {
-    const slug = slugRef.current?.value ?? ""
+    try {
+      const slug = slugRef.current?.value as string
 
-    const method = isCreating ? "POST" : "PUT"
+      const url = isCreating
+        ? "http://localhost:3001/pages/"
+        : `http://localhost:3001/pages/${editingPageSlug}`
 
-    const url = isCreating
-      ? "http://localhost:3001/pages/"
-      : `http://localhost:3001/pages/${editingPageSlug}`
-
-    const body = JSON.stringify({ slug, sections })
-
-    const response = await fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body
-    })
-
-    if (response.status === (isCreating ? 201 : 204)) {
-      setTimeout(() => {
-        push(`/page/${slug}`)
-      }, 1000)
-    } else {
-      const error: RequestError = await response.json()
-
-      if (error.message.includes("already exists")) {
-        slugRef.current?.focus()
-
-        handleOpenMessageModal({
-          title: "Erro",
-          message: "Já existe uma página com esse nome"
-        })
-      } else {
-        handleOpenMessageModal({
-          title: "Erro",
-          message: `Falha ao ${isCreating ? "criar" : "editar"} a página`
-        })
+      const options = {
+        method: isCreating ? "POST" : "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ slug, sections })
       }
+
+      const response = await fetch(url, options)
+
+      if (response.status === (isCreating ? 201 : 204)) {
+        setTimeout(() => {
+          push(`/page/${slug}`)
+        }, 800)
+      } else {
+        const error: RequestError = await response.json()
+
+        if (error.message.includes("already exists")) {
+          slugRef.current?.focus()
+
+          handleOpenMessageModal({
+            title: "Erro",
+            message: "Já existe uma página com esse nome"
+          })
+        } else {
+          handleOpenMessageModal({
+            title: "Erro",
+            message: `Falha ao ${isCreating ? "criar" : "editar"} a página`
+          })
+        }
+      }
+    } catch {
+      handleOpenMessageModal({
+        title: "Erro",
+        message: `Falha ao ${isCreating ? "criar" : "editar"} a página`
+      })
     }
   }
 
