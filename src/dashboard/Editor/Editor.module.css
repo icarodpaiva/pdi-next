@@ -6,6 +6,15 @@
   padding: 16px;
 }
 
+.editorContainer .pageSlugInput {
+  margin-top: 4px;
+  display: block;
+  width: 100%;
+  padding: 8px 16px;
+  font-size: 16px;
+  line-height: 20px;
+}
+
 .sectionsContainer {
   display: grid;
   gap: 8px;

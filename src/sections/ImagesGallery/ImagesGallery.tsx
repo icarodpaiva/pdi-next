@@ -35,7 +35,8 @@ export const ImagesGallerySchema: JSONSchemaType<ImagesGalleryProps> = {
   properties: {
     title: {
       title: "Title",
-      type: "string"
+      type: "string",
+      default: "Gallery Title"
     },
     images: {
       title: "Images",

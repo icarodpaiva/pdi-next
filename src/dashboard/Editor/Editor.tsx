@@ -138,9 +138,10 @@ export const Editor = ({
 
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="page-slug">Nome da Página: </label>
+          <label htmlFor="page-slug">Nome da Página:</label>
 
           <input
+            className={style.pageSlugInput}
             id="page-slug"
             name="page-slug"
             type="text"
