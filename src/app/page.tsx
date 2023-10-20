@@ -1,7 +1,7 @@
 import { Suspense } from "react"
 import Link from "next/link"
 
-import { AllPagesLoading, AllPages } from "../components/_server/AllPages"
+import { AllPagesLoading, AllPages } from "@/components/_server/AllPages"
 
 export default function HomePage() {
   return (

@@ -2,7 +2,7 @@
 
 import { Modal } from "../Modal"
 
-import type { MessageModalContent } from "../../../hooks/useMessagesModal"
+import type { MessageModalContent } from "@/hooks/useMessagesModal"
 
 import style from "./MessageModal.module.css"
 

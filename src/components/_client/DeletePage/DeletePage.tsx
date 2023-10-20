@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation"
 
 import { MessageModal } from "../MessageModal"
 
-import { useMessagesModal } from "../../../hooks/useMessagesModal"
+import { useMessagesModal } from "@/hooks/useMessagesModal"
 
 import style from "./DeletePage.module.css"
 

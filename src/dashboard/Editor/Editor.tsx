@@ -3,17 +3,17 @@
 import { useState, useRef } from "react"
 import { useRouter } from "next/navigation"
 
-import { AddSection } from "../../components/_client/AddComponent"
-import { Modal } from "../../components/_client/Modal"
-import { Section } from "../../components/_client/Section"
-import { MessageModal } from "../../components/_client/MessageModal"
+import { AddSection } from "@/components/_client/AddSection"
+import { Modal } from "@/components/_client/Modal"
+import { Section } from "@/components/_client/Section"
+import { MessageModal } from "@/components/_client/MessageModal"
 
-import { sectionsNames } from "../../helpers/sectionsData"
-import { useMessagesModal } from "../../hooks/useMessagesModal"
-import { addArrayItem } from "../../utils/addArrayItem"
+import { sectionsNames } from "@/helpers/sectionsData"
+import { useMessagesModal } from "@/hooks/useMessagesModal"
+import { addArrayItem } from "@/utils/addArrayItem"
 
-import type { Component } from "../../types/PagesRequests"
-import type { RequestError } from "../../types/PagesRequests"
+import type { Component } from "@/types/PagesRequests"
+import type { RequestError } from "@/types/PagesRequests"
 
 import style from "./Editor.module.css"
 

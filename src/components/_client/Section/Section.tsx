@@ -1,7 +1,7 @@
-import { AddSection } from "../AddComponent/AddSection"
+import { AddSection } from "../AddSection"
 import { SectionForm } from "../SectionForm"
 
-import type { Component } from "../../../types/PagesRequests"
+import type { Component } from "@/types/PagesRequests"
 
 import style from "./Section.module.css"
 

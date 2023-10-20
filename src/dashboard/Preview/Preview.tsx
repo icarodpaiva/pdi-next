@@ -1,8 +1,8 @@
 "use client"
 
-import { RenderComponents } from "../../helpers/RenderComponents"
+import { RenderComponents } from "@/helpers/RenderComponents"
 
-import type { RenderComponentsProps } from "../../helpers/RenderComponents"
+import type { RenderComponentsProps } from "@/helpers/RenderComponents"
 
 import style from "./Preview.module.css"
 

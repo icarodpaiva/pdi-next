@@ -1,6 +1,6 @@
 import { components } from "./sectionsData"
 
-import type { Component } from "../types/PagesRequests"
+import type { Component } from "@/types/PagesRequests"
 
 export interface RenderComponentsProps {
   pageComponents: Component[]

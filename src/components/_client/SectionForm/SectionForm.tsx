@@ -1,9 +1,9 @@
 "use client"
 
-import { forms } from "../../../helpers/sectionsData"
-import { removeArrayItem } from "../../../utils/removeArrayItem"
+import { forms } from "@/helpers/sectionsData"
+import { removeArrayItem } from "@/utils/removeArrayItem"
 
-import type { Component } from "../../../types/PagesRequests"
+import type { Component } from "@/types/PagesRequests"
 
 import style from "./SectionForm.module.css"
 

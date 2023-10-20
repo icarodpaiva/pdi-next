@@ -5,7 +5,7 @@ import { useState } from "react"
 import { Editor } from "./Editor"
 import { Preview } from "./Preview"
 
-import type { PageData, Component } from "../types/PagesRequests"
+import type { PageData, Component } from "@/types/PagesRequests"
 
 import style from "./Dashboard.module.css"
 

@@ -7,7 +7,7 @@ import { customizeValidator } from "@rjsf/validator-ajv8"
 
 import type { IChangeEvent } from "@rjsf/core"
 import type { JSONSchemaType } from "ajv"
-import type { Component } from "../../../types/PagesRequests"
+import type { Component } from "@/types/PagesRequests"
 
 interface FormProps<ComponentProps> {
   schema: JSONSchemaType<ComponentProps>
